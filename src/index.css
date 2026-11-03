@@ -17,6 +17,7 @@
     background-position: -1px -1px;
     color: #222B1E;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 }
 

@@ -6,6 +6,7 @@ interface DesktopFolderProps {
   href?: string;
   download?: string | boolean;
   className?: string;
+  ariaLabel?: string;
 }
 
 export const DesktopFolder: React.FC<DesktopFolderProps> = ({
@@ -14,16 +15,18 @@ export const DesktopFolder: React.FC<DesktopFolderProps> = ({
   href,
   download,
   className = '',
+  ariaLabel,
 }) => {
   const content = (
-    <div className={`desktop-icon-btn group ${className}`}>
-      {/* Manila folder SVG with blue disk/doc inside */}
+    <div className={`desktop-icon-btn group focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none rounded-lg p-2 ${className}`}>
+      {/* Manila folder SVG with blue floppy disk/doc inside */}
       <div className="relative w-14 h-12 transition-transform duration-200 group-hover:scale-105 group-active:scale-95">
         <svg
           viewBox="0 0 56 46"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className="w-full h-full drop-shadow-sm"
+          aria-hidden="true"
         >
           {/* Folder back tab */}
           <path
@@ -34,7 +37,7 @@ export const DesktopFolder: React.FC<DesktopFolderProps> = ({
             strokeLinejoin="round"
           />
 
-          {/* Blue Floppy Disk / Document sticking out */}
+          {/* Blue Floppy Disk / Document */}
           <rect
             x="10"
             y="6"
@@ -45,7 +48,6 @@ export const DesktopFolder: React.FC<DesktopFolderProps> = ({
             stroke="#36432C"
             strokeWidth="2"
           />
-          {/* Disk label strip */}
           <rect x="15" y="9" width="18" height="7" rx="1" fill="#FFFFFF" />
 
           {/* Folder front flap */}
@@ -72,7 +74,8 @@ export const DesktopFolder: React.FC<DesktopFolderProps> = ({
         href={href}
         download={download}
         onClick={onClick}
-        className="inline-block focus:outline-none"
+        aria-label={ariaLabel || `Open ${label} folder`}
+        className="inline-block focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none rounded-lg"
       >
         {content}
       </a>
@@ -83,7 +86,8 @@ export const DesktopFolder: React.FC<DesktopFolderProps> = ({
     <button
       type="button"
       onClick={onClick}
-      className="inline-block focus:outline-none text-left"
+      aria-label={ariaLabel || `Navigate to ${label} section`}
+      className="inline-block focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none rounded-lg text-left"
     >
       {content}
     </button>

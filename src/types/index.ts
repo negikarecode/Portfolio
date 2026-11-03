@@ -21,7 +21,6 @@ export interface Project {
     live?: string;
     github?: string;
   };
-  isPlaceholderLink?: boolean;
 }
 
 export interface ExperienceItem {
@@ -48,6 +47,7 @@ export interface CertificationItem {
   title: string;
   issuer: string;
   year?: string;
+  credentialUrl?: string;
   skillsVerified: string[];
 }
 
@@ -65,7 +65,6 @@ export interface PortfolioData {
     positioning: string;
     availability: string;
     location: string;
-    phone: string;
     email: string;
     social: {
       github: string;
