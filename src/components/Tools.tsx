@@ -44,7 +44,7 @@ export const Tools: React.FC = () => {
             TOOLS & STACK
           </h2>
           <p className="font-serif italic text-base sm:text-lg text-olive-800 mt-1 leading-relaxed">
-            "Engineered with verified programming languages, frameworks, and developer tooling."
+            "Languages, frameworks, and tools I use to build and ship."
           </p>
         </div>
 
@@ -59,10 +59,10 @@ export const Tools: React.FC = () => {
           ))}
         </div>
 
-        {/* Footnote bar */}
+        {/* Footnote bar (Clean wording: 11 tools, used across my projects) */}
         <div className="mt-8 pt-5 border-t-2 border-dashed border-olive-900/15 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm font-mono text-olive-800">
-          <span>Active Modules: 11 Verified</span>
-          <span className="font-bold text-copper">Grounded in Production Work</span>
+          <span>Active Modules: 11 tools</span>
+          <span className="font-bold text-copper">Used across my projects</span>
         </div>
       </RetroWindow>
     </section>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { User } from 'lucide-react';
 
 interface ProfileAppIconProps {
   label?: string;
@@ -19,9 +20,7 @@ export const ProfileAppIcon: React.FC<ProfileAppIconProps> = ({
       aria-label={`Open ${label} window`}
     >
       <div className="w-12 h-12 rounded-xl bg-olive-800 border-2 border-olive-900 flex items-center justify-center shadow-sm transition-transform duration-200 group-hover:scale-105 group-active:scale-95">
-        <span className="font-serif text-2xl font-bold text-white tracking-normal leading-none select-none">
-          h
-        </span>
+        <User className="w-6 h-6 text-white stroke-[2.2]" aria-hidden="true" />
       </div>
       <span className="font-mono text-xs font-semibold text-olive-900 tracking-wide text-center group-hover:text-copper transition-colors">
         {label}

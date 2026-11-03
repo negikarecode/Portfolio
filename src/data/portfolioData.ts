@@ -6,7 +6,7 @@ export const portfolioData: PortfolioData = {
     firstName: "Aryan",
     lastName: "Negi",
     title: "Full Stack Developer",
-    positioning: "I build responsive, high-performance web products that get out of your way.",
+    positioning: "I build responsive web products that get out of your way.",
     availability: "Open to roles & technical projects",
     location: "New Delhi, India",
     email: "aryannegiofficial@gmail.com",
@@ -21,7 +21,7 @@ export const portfolioData: PortfolioData = {
       short: "I care deeply about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier.",
       paragraphs: [
         "Based in New Delhi, India, I am pursuing a Bachelor of Computer Science at Delhi University. My approach combines pragmatic engineering with thoughtful interaction design — bridging clean front-end interfaces with reliable backend services.",
-        "From customizing production Shopify storefronts using Liquid, HTML, CSS, and modern JavaScript to engineering full-stack platforms with React, Python, and Django, I focus on turning complex user workflows into fast, responsive digital experiences.",
+        "From customizing production Shopify storefronts using Liquid, HTML, CSS, and modern JavaScript to building full-stack platforms with React, Python, and Django, I focus on turning technical requirements into fast, responsive digital experiences.",
         "Certified as an IBM Full Stack Software Developer, I've contributed to client deliverables through software internships at Open Limits and Klynt Solutions, prioritizing performance, semantic accessibility, and modular component architecture."
       ],
     },
@@ -35,12 +35,11 @@ export const portfolioData: PortfolioData = {
       period: "2025–26",
       duration: "6 Months",
       location: "New Delhi / Remote",
-      description: "Built and customized Shopify e-commerce stores, developed responsive theme components, and resolved critical front-end bottlenecks to elevate store performance.",
+      description: "Built and customized Shopify e-commerce stores, developed responsive theme components, and resolved front-end issues to improve store performance.",
       bullets: [
-        "Architected and customized Shopify storefronts using Liquid, HTML, CSS, and JavaScript, creating modular theme components and fluid product pages.",
+        "Built and customized Shopify storefronts using Liquid, HTML, CSS, and JavaScript, creating modular theme components and fluid product pages.",
         "Identified and resolved cross-browser rendering bugs and responsive layout inconsistencies across mobile, tablet, and desktop viewports.",
-        "Optimized asset loading sequences and theme scripts to improve store page load speeds and streamline the mobile checkout experience.",
-        "Collaborated with brand stakeholders to rapidly prototype and launch new promotional sections and intuitive navigation flows."
+        "Optimized asset loading sequences and theme scripts to improve store page load speeds and streamline the mobile checkout experience."
       ],
       techStack: ["Shopify Liquid", "HTML5", "CSS3", "JavaScript", "Responsive Design", "Theme Optimization"],
       badgeColor: "mint",
@@ -53,10 +52,9 @@ export const portfolioData: PortfolioData = {
       location: "New Delhi / Remote",
       description: "Developed static and interactive client web pages focusing on layout integrity, mobile responsiveness, and vanilla DOM manipulation.",
       bullets: [
-        "Engineered responsive web interfaces from design mockups utilizing semantic HTML5, modern CSS layouts (Flexbox/Grid), and vanilla JavaScript.",
+        "Developed responsive web interfaces from design mockups utilizing semantic HTML5, modern CSS layouts (Flexbox/Grid), and vanilla JavaScript.",
         "Implemented DOM manipulation scripts for interactive UI components, dynamic modals, and responsive navigation menus.",
-        "Conducted cross-device responsive audits, ensuring visual layout consistency and robust mobile performance across targeted screen sizes.",
-        "Streamlined front-end code structure and asset delivery to enhance overall page responsiveness and rendering performance."
+        "Conducted cross-device responsive testing to maintain visual layout integrity and clean rendering across targeted screen sizes."
       ],
       techStack: ["HTML5", "CSS3", "JavaScript", "DOM Manipulation", "Responsive Layouts"],
       badgeColor: "yellow",
@@ -68,53 +66,44 @@ export const portfolioData: PortfolioData = {
       id: "cuetmate",
       title: "CUETMate",
       tag: "PROJECT #01",
-      subtitle: "AI-Powered Diagnostic & Mock Test Platform for CUET UG Aspirants",
-      role: "Lead Full Stack Developer",
+      subtitle: "Diagnostic & Mock Test Platform for CUET UG Aspirants",
+      role: "Full Stack Developer",
       period: "2025",
-      summary: "Developed a comprehensive CUET UG exam preparation platform offering full-length mock tests, PYQs, and chapter-wise practice tests with integrated AI performance analytics.",
-      problem: "Students preparing for CUET UG struggled with generic mock exams that failed to pinpoint subject-level conceptual weaknesses, causing inefficient study cycles.",
-      solution: "Engineered an intelligent preparation platform featuring timed mock exams, previous year question banks, and a proprietary 150-question diagnostic cycle that identifies learning gaps and provides personalized study recommendations.",
+      goal: "Build a comprehensive preparation platform offering full-length mock tests, chapter-wise practice tests, previous year question archives, and a 150-question diagnostic cycle to identify learning gaps.",
+      solution: "Developed the testing engine and performance analytics using React, Django REST framework, and MySQL to deliver structured mock exams and improvement insights.",
       bullets: [
-        "Architected the full-stack testing engine supporting chapter-wise practice, timed full-length simulations, and indexed previous year questions (PYQs).",
-        "Integrated an AI-powered diagnostic engine analyzing a 150-question assessment cycle to classify subject weaknesses and generate targeted improvement insights.",
-        "Designed an interactive student review dashboard with detailed answer explanations, accuracy curves, and topic-wise performance breakdowns.",
-        "Constructed a relational MySQL database schema integrated with Django REST API endpoints for secure, low-latency question retrieval."
+        "Developed the full-stack test engine supporting chapter-wise practice modules, timed mock examinations, and indexed previous year questions (PYQs).",
+        "Integrated a 150-question diagnostic cycle system to identify subject weaknesses and generate personalized improvement insights.",
+        "Constructed a relational MySQL database schema integrated with Django REST API endpoints for secure, low-latency question retrieval and review."
       ],
-      impact: [
-        { label: "Diagnostic Engine", value: "150-Q Cycle", description: "Structured diagnostic cycle identifying topic-level weaknesses" },
-        { label: "Assessment Scope", value: "Full-Length & PYQs", description: "Timed mock exams, previous year papers, and chapter tests" },
-        { label: "Platform Stack", value: "Full-Stack", description: "React front-end paired with Django REST framework and MySQL" },
-      ],
-      techStack: ["React", "Python", "Django", "MySQL", "Tailwind CSS", "RESTful APIs", "AI Analytics"],
+      techStack: ["React", "Python", "Django", "MySQL", "Tailwind CSS", "RESTful APIs", "Performance Analytics"],
       links: {
-        // Unconfirmed demo/code links omitted to avoid dead buttons; add to checklist
+        // demo: "https://...",
+        // code: "https://github.com/..."
       },
+      screenshots: [],
     },
     {
       id: "urban-essentials",
       title: "Urban Essentials",
       tag: "PROJECT #02",
-      subtitle: "Shopify Storefront Customization & Brand Experience",
-      role: "Front-End & Shopify Developer",
+      subtitle: "Shopify Storefront Customization & Merchandising",
+      role: "Web Developer",
       period: "2025",
-      summary: "Customized a modern Shopify e-commerce storefront with responsive layouts, optimized product pages, and intuitive mobile navigation.",
-      problem: "The merchant experienced mobile user drop-offs due to cumbersome product option navigation, non-standard layout breaks, and complex checkout steps.",
-      solution: "Customized storefront templates using Liquid and modular CSS, engineering sticky buy flows, responsive product matrices, and dynamic variant selectors optimized for touch navigation.",
+      isShopifyStore: true,
+      goal: "Customize a Shopify storefront with responsive layouts, optimized product pages, and intuitive navigation.",
+      solution: "Built custom theme templates using Liquid, HTML, CSS, and JavaScript, refining product pages and storefront usability.",
       bullets: [
-        "Customized Shopify storefront architecture with modular Liquid templates, allowing flexible section reordering and content merchandising.",
-        "Redesigned product detail pages with instant variant pickers, dynamic stock indicators, and a sticky mobile add-to-cart tray.",
-        "Optimized mobile navigation paths and checkout layout to streamline the purchasing flow for mobile shoppers.",
-        "Refactored theme stylesheets with responsive, utility-first CSS practices to improve mobile accessibility and layout stability."
-      ],
-      impact: [
-        { label: "Theme Architecture", value: "Shopify Liquid", description: "Modular custom theme sections allowing flexible content merchandising" },
-        { label: "Product Detail UX", value: "Variant Selectors", description: "Dynamic variant pickers with instant price and stock display" },
-        { label: "Checkout Journey", value: "Sticky Buy Tray", description: "Mobile-first add-to-cart tray designed for one-thumb browsing" },
+        "Built custom Shopify storefront sections using Liquid, HTML, CSS, and JavaScript, creating modular theme templates for flexible merchandising.",
+        "Customized product detail pages with instant variant pickers, dynamic stock indicators, and a sticky mobile add-to-cart tray.",
+        "Refactored theme stylesheets to eliminate responsive layout inconsistencies and streamline the mobile checkout experience."
       ],
       techStack: ["Shopify Liquid", "HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Mobile UX"],
       links: {
-        // Unconfirmed demo/code links omitted to avoid dead buttons; add to checklist
+        // demo: "https://...",
+        // code: "https://github.com/..."
       },
+      screenshots: [],
     },
   ],
 
@@ -169,9 +158,9 @@ export const portfolioData: PortfolioData = {
       title: "IBM Full Stack Software Developer",
       issuer: "IBM",
       year: "2025",
-      skillsVerified: [
-        "Front-End Web Development with React",
-        "Back-End Services & Cloud Architecture",
+      topicsCovered: [
+        "Front-End Development with React",
+        "Back-End Services & Architecture",
         "Relational Database Integration",
         "Application Security & DevOps Foundations"
       ],

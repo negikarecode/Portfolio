@@ -109,9 +109,9 @@ export const Education: React.FC = () => {
 
                 <div className="mt-4 pt-3.5 border-t border-olive-900/15 space-y-2">
                   <span className="font-mono text-xs font-bold text-olive-900 uppercase tracking-wider block">
-                    Validated Competencies:
+                    Core Competencies:
                   </span>
-                  {cert.skillsVerified.map((skill, sIdx) => (
+                  {cert.topicsCovered.map((skill, sIdx) => (
                     <div key={sIdx} className="flex items-center gap-2 text-sm sm:text-base font-sans text-olive-900">
                       <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" aria-hidden="true" />
                       <span>{skill}</span>

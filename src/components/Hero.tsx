@@ -17,11 +17,11 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section id="profile" className="pt-2 sm:pt-4 pb-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+    <section id="profile" className="pt-2 sm:pt-4 pb-10 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
       {/* 1. TOP DESKTOP SCREEN (Hero Headline, Folders & Quick CTAs) */}
       <div className="relative py-4 sm:py-6 border-b-2 border-dashed border-olive-900/20 mb-8 sm:mb-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6">
-          {/* Left Desktop Folders (Desktop: vertical column; Mobile: horizontal row) */}
+          {/* Left Desktop Folders */}
           <div className="flex lg:flex-col items-center justify-center gap-2 sm:gap-4 shrink-0 order-2 lg:order-1">
             <ProfileAppIcon label="profile" onClick={() => scrollToSection('portfolio-window')} />
             <DesktopFolder label="works" onClick={() => scrollToSection('works-window')} />
@@ -95,7 +95,7 @@ export const Hero: React.FC = () => {
           className="shadow-retro-lg"
         >
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8">
-            {/* Left: Circular Avatar with Alt Text */}
+            {/* Left: Circular Avatar with Alt Text & Fixed Whitespace Badge */}
             <div className="relative shrink-0">
               <div
                 className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-olive-900 bg-olive-100 overflow-hidden shadow-sm flex items-center justify-center relative"
@@ -105,8 +105,9 @@ export const Hero: React.FC = () => {
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-olive-800 text-white flex items-center justify-center font-serif text-3xl sm:text-4xl shadow-inner mb-1 border-2 border-olive-900 select-none">
                     AN
                   </div>
-                  <span className="font-mono text-xs font-bold text-olive-900 bg-white/90 px-2 py-0.5 rounded-full border border-olive-300">
-                    New Delhi, IN 🇮🇳
+                  {/* Fixed location badge: nowrap with proper width */}
+                  <span className="font-mono text-xs font-bold text-olive-900 bg-white/95 px-2.5 py-0.5 rounded-full border border-olive-300 whitespace-nowrap shadow-2xs">
+                    New Delhi 🇮🇳
                   </span>
                 </div>
               </div>
@@ -118,29 +119,20 @@ export const Hero: React.FC = () => {
               </div>
             </div>
 
-            {/* Right: Bio & Profile Details */}
-            <div className="flex-1 text-center sm:text-left space-y-2.5">
-              <span className="font-mono text-sm sm:text-base text-olive-800 block font-medium">
-                hi! i'm
-              </span>
-
-              {/* Name in Copper Orange Serif */}
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-copper leading-tight tracking-normal">
-                {personal.firstName} {personal.lastName}
-              </h2>
-
-              <p className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-olive-900">
-                I'M A {personal.title.toUpperCase()}
-              </p>
-
+            {/* Right: Bio & Profile Details (Removed duplicated name and role, leading with positioning quote) */}
+            <div className="flex-1 text-center sm:text-left space-y-3">
               {/* Positioning Quote */}
-              <blockquote className="font-serif italic text-base sm:text-lg text-olive-800 pt-1 leading-snug">
+              <blockquote className="font-serif italic text-xl sm:text-2xl text-copper font-medium leading-snug tracking-normal">
                 "{personal.positioning}"
               </blockquote>
 
-              {/* High Readability Paragraph: line-height 1.6-1.7, font-size >= 16px, letter-spacing 0 */}
-              <p className="text-base text-olive-900 pt-1 leading-[1.65] font-sans tracking-normal">
+              {/* About Paragraphs: font-size >= 16px, line-height 1.65, letter-spacing 0 */}
+              <p className="text-base text-olive-900 leading-[1.65] font-sans tracking-normal">
                 {personal.bio.short}
+              </p>
+
+              <p className="text-base text-olive-800 leading-[1.65] font-sans tracking-normal hidden sm:block">
+                {personal.bio.paragraphs[0]}
               </p>
 
               {/* Metadata Badges */}
@@ -156,7 +148,7 @@ export const Hero: React.FC = () => {
               </div>
 
               {/* Window CTAs */}
-              <div className="pt-4 flex flex-wrap items-center justify-center sm:justify-start gap-3">
+              <div className="pt-3 flex flex-wrap items-center justify-center sm:justify-start gap-3">
                 <button
                   type="button"
                   onClick={() => scrollToSection('contact-window')}

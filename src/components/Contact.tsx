@@ -79,13 +79,12 @@ export const Contact: React.FC = () => {
             </button>
           </div>
 
-          {/* Location row (Phone number completely removed for privacy) */}
+          {/* Location row */}
           <div className="mt-4 pt-3.5 border-t border-olive-900/10 flex items-center justify-between text-xs sm:text-sm font-mono text-olive-800">
             <span className="flex items-center gap-1.5 font-medium">
               <MapPin className="w-3.5 h-3.5 text-copper" aria-hidden="true" />
               <span>{personal.location}</span>
             </span>
-            <span className="text-olive-600 text-xs">Replies within 24h</span>
           </div>
         </div>
 

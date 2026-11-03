@@ -1,9 +1,3 @@
-export interface MetricItem {
-  label: string;
-  value: string;
-  description: string;
-}
-
 export interface Project {
   id: string;
   title: string;
@@ -11,16 +5,16 @@ export interface Project {
   subtitle: string;
   role: string;
   period: string;
-  summary: string;
-  problem: string;
+  goal: string;
   solution: string;
   bullets: string[];
-  impact: MetricItem[];
   techStack: string[];
-  links: {
-    live?: string;
-    github?: string;
+  links?: {
+    demo?: string;
+    code?: string;
   };
+  screenshots?: string[];
+  isShopifyStore?: boolean;
 }
 
 export interface ExperienceItem {
@@ -48,7 +42,7 @@ export interface CertificationItem {
   issuer: string;
   year?: string;
   credentialUrl?: string;
-  skillsVerified: string[];
+  topicsCovered: string[];
 }
 
 export interface SkillCategory {
