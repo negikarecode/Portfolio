@@ -94,18 +94,18 @@ export const Education: React.FC = () => {
                   Professional credential verifying front-end architecture, modern backend services, databases, and DevOps practices.
                 </p>
 
-                {/* Primary Action: Download Certificate PDF (min 44px touch target) */}
+                {/* Primary Action: View Certificate PDF (single-line label, min 44px touch target) */}
                 {cert.certificatePdfUrl && (
                   <div className="mt-4">
                     <a
                       href={cert.certificatePdfUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2.5 min-h-[44px] bg-olive-900 text-white font-mono text-xs font-bold rounded-sm border-2 border-olive-900 hover:bg-copper transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+                      className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2.5 min-h-[44px] bg-olive-900 text-white font-mono text-xs font-bold rounded-sm border-2 border-olive-900 hover:bg-copper transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none whitespace-nowrap"
                     >
-                      <FileText className="w-4 h-4 text-peach" aria-hidden="true" />
-                      <span>Download certificate (PDF)</span>
-                      <ExternalLink className="w-3.5 h-3.5 opacity-80" aria-hidden="true" />
+                      <FileText className="w-4 h-4 text-peach shrink-0" aria-hidden="true" />
+                      <span className="whitespace-nowrap">View certificate</span>
+                      <ExternalLink className="w-3.5 h-3.5 opacity-80 shrink-0" aria-hidden="true" />
                     </a>
                   </div>
                 )}

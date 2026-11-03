@@ -132,10 +132,10 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
         className="w-full max-w-4xl max-h-[92vh] flex flex-col bg-cream border-2 border-olive-900 rounded-lg shadow-retro-xl overflow-hidden animate-in zoom-in-95 duration-150"
       >
         {/* Retro Window Titlebar */}
-        <div className="bg-olive-800 text-cream px-3 sm:px-4 py-2 flex items-center justify-between border-b-2 border-olive-900 select-none">
+        <div className="bg-olive-800 text-[#F4EEDB] px-3 sm:px-4 py-2 flex items-center justify-between border-b-2 border-olive-900 select-none">
           <div className="flex items-center gap-2 overflow-hidden">
             <span className="w-2.5 h-2.5 rounded-full bg-peach border border-olive-900/30" />
-            <span className="font-mono text-xs sm:text-sm font-bold tracking-wider truncate text-cream">
+            <span className="font-mono text-xs sm:text-sm font-bold tracking-wider truncate text-[#F4EEDB]">
               preview:\{projectTitle.toLowerCase().replace(/\s+/g, '-')}\{currentIndex + 1}.img
             </span>
             {hasMultiple && (

@@ -90,10 +90,10 @@ export const Works: React.FC = () => {
                 {/* Screenshot Retro Window Frame (Placed strictly between Goal/Solution block and Bullets) */}
                 {hasScreenshots && (
                   <div className="mb-6 rounded-md border-2 border-olive-900 overflow-hidden shadow-retro-sm bg-olive-50">
-                    <div className="bg-olive-800 text-cream px-3 py-1.5 flex items-center justify-between text-xs font-mono border-b border-olive-900 select-none gap-2">
+                    <div className="bg-olive-800 text-[#F4EEDB] px-3 py-1.5 flex items-center justify-between text-xs font-mono border-b border-olive-900 select-none gap-2">
                       <div className="flex items-center gap-2 min-w-0">
                         <span className="w-2 h-2 rounded-full bg-peach shrink-0" />
-                        <span className="font-bold tracking-wide text-cream truncate">
+                        <span className="font-bold tracking-wide text-[#F4EEDB] truncate">
                           preview:\{project.id}\screens
                         </span>
                       </div>
@@ -118,7 +118,7 @@ export const Works: React.FC = () => {
                               })
                             }
                             aria-label={`Enlarge screenshot: ${screenshot.caption}`}
-                            className="group text-left rounded border-2 border-olive-900/30 overflow-hidden bg-white hover:border-olive-900 focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none transition-all duration-150 shadow-retro-xs hover:shadow-retro-sm cursor-zoom-in"
+                            className="group relative text-left rounded border-2 border-olive-900/30 overflow-hidden bg-white hover:border-olive-900 focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none transition-all duration-150 shadow-retro-xs hover:shadow-retro-sm cursor-zoom-in"
                           >
                             <div className="relative aspect-[16/10] overflow-hidden bg-olive-950/5">
                               <img
@@ -130,7 +130,8 @@ export const Works: React.FC = () => {
                                 decoding="async"
                                 className="w-full h-full object-cover object-top transition-transform duration-200 group-hover:scale-[1.02]"
                               />
-                              <span className="absolute bottom-2 right-2 px-2 py-0.5 bg-olive-950/85 text-cream text-[10px] font-mono rounded-xs border border-olive-700/60 opacity-90 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                              {/* Expand badge: positioned top-right, semi-transparent, visible on hover and keyboard focus */}
+                              <span className="absolute top-2 right-2 px-2 py-0.5 bg-olive-950/75 backdrop-blur-xs text-[#F4EEDB] text-[10px] font-mono rounded-xs border border-olive-700/60 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-150 flex items-center gap-1 shadow-xs pointer-events-none">
                                 <Maximize2 className="w-3 h-3 text-peach" aria-hidden="true" />
                                 <span>Expand</span>
                               </span>
