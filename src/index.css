@@ -4,68 +4,121 @@
 
 @layer base {
   :root {
-    --paper-bg: #FAF8F5;
-    --paper-line: rgba(24, 24, 27, 0.045);
+    --graph-bg: #F4EEDB;
+    --graph-line: rgba(88, 106, 76, 0.15);
   }
 
   body {
-    background-color: var(--paper-bg);
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent,
-      transparent 31px,
-      var(--paper-line) 31px,
-      var(--paper-line) 32px
-    );
-    color: #111113;
+    background-color: var(--graph-bg);
+    background-image: 
+      linear-gradient(var(--graph-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--graph-line) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: -1px -1px;
+    color: #222B1E;
+    min-height: 100vh;
   }
 }
 
-/* Washi / Scotch Tape Effect */
-.washi-tape {
-  position: absolute;
-  height: 18px;
-  background-color: rgba(254, 252, 232, 0.75);
-  backdrop-filter: blur(1px);
-  border-left: 2px dashed rgba(200, 190, 160, 0.4);
-  border-right: 2px dashed rgba(200, 190, 160, 0.4);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  pointer-events: none;
-  z-index: 20;
+/* Retro OS Window Styles */
+.retro-window {
+  background-color: #FBF8F1;
+  border: 2.5px solid #36432C;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px 0px rgba(54, 67, 44, 0.95);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Figma Selection Bounding Box with grab handles */
-.figma-box {
-  position: relative;
-  border: 1.5px dashed #2563EB;
+.retro-window:hover {
+  box-shadow: 7px 7px 0px 0px rgba(54, 67, 44, 0.95);
 }
 
-.figma-handle {
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  background-color: #FFFFFF;
-  border: 1.5px solid #2563EB;
-  z-index: 10;
+/* Titlebar */
+.retro-titlebar {
+  background-color: #546647;
+  color: #F4F7F1;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2.5px solid #36432C;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  user-select: none;
 }
 
-/* Polaroid Card Effect */
-.polaroid-card {
-  background: #FFFFFF;
-  padding: 10px 10px 24px 10px;
-  box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(228, 228, 231, 0.8);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+/* Window Close Button */
+.retro-close-btn {
+  width: 20px;
+  height: 20px;
+  background-color: #E56B6F;
+  border: 1.5px solid #B8474B;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 1px 1px 0px 0px rgba(54, 67, 44, 0.6);
 }
 
-.polaroid-card:hover {
-  transform: translateY(-4px) rotate(0.5deg);
-  box-shadow: 0 18px 30px -5px rgba(0, 0, 0, 0.12), 0 8px 12px -3px rgba(0, 0, 0, 0.06);
+.retro-close-btn:hover {
+  background-color: #d8575b;
+  transform: scale(1.05);
 }
 
-/* Tab Chamfer / Angled Cut */
-.chamfer-tab {
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+.retro-close-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: none;
+}
+
+/* Window Top Peach Accent Bar */
+.retro-accent-bar {
+  height: 16px;
+  background-color: #EFA072;
+  border-bottom: 2px solid #36432C;
+  width: 100%;
+}
+
+/* Desktop Icon Button */
+.desktop-icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.desktop-icon-btn:hover {
+  background-color: rgba(106, 123, 90, 0.15);
+  transform: translateY(-2px);
+}
+
+.desktop-icon-btn:active {
+  transform: translateY(0);
+}
+
+/* Dock Bar */
+.retro-dock-bar {
+  background-color: #6A7B5A;
+  border: 2.5px solid #36432C;
+  border-radius: 12px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 4px 4px 0px 0px rgba(54, 67, 44, 0.9);
 }
 
 /* Reduced Motion Override */

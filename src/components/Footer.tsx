@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, Terminal } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 export const Footer: React.FC = () => {
@@ -8,26 +8,26 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="border-t border-ink-950/10 bg-paper/80 py-10 px-4 sm:px-6 lg:px-8 mt-16 font-mono text-xs text-ink-600">
+    <footer className="border-t-2 border-dashed border-olive-900/20 bg-graph-bg/90 py-8 px-4 sm:px-6 lg:px-8 font-mono text-xs text-olive-700">
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* Left text */}
+        {/* Left */}
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+          <Terminal className="w-3.5 h-3.5 text-copper" />
           <span>
-            {portfolioData.personal.name} © {new Date().getFullYear()} • Delhi University
+            {portfolioData.personal.name} © {new Date().getFullYear()} • C:\SYSTEM\PORTFOLIO.EXE
           </span>
         </div>
 
-        {/* Center note */}
-        <div className="font-handwriting text-lg text-ink-700">
-          built with precision & clean code 🌸
+        {/* Center */}
+        <div className="font-serif italic text-sm text-olive-800">
+          "Meaningful code starts with intention."
         </div>
 
-        {/* Right back to top button */}
+        {/* Right back to top */}
         <button
           onClick={scrollToTop}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-ink-950/20 rounded-xs text-ink-800 hover:bg-brand-yellow transition-colors shadow-xs active:translate-y-0.5"
-          aria-label="Back to top of page"
+          className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border-2 border-olive-900 rounded-sm text-olive-900 font-bold hover:bg-peach transition-colors shadow-retro-sm active:translate-y-0.5"
+          aria-label="Back to top"
         >
           <span>TOP</span>
           <ArrowUp className="w-3.5 h-3.5" />

@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Check, Copy, ExternalLink, Mail, Phone, Send } from 'lucide-react';
+import { Check, Copy, ExternalLink, Phone, Send } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
-import { BoundingBox } from './ui/BoundingBox';
-import { Smiley } from './ui/Smiley';
-import { StickyNote } from './ui/StickyNote';
-import { WashiTape } from './ui/WashiTape';
+import { RetroWindow } from './ui/RetroWindow';
 import { GithubIcon, LinkedinIcon } from './ui/Icons';
+import { DockBar } from './ui/DockBar';
 
 export const Contact: React.FC = () => {
   const { personal } = portfolioData;
@@ -19,80 +16,50 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
-      {/* Section Header */}
-      <div className="flex items-center justify-center gap-3 mb-8">
-        <span className="bg-brand-yellow px-2.5 py-1 text-xs font-mono font-bold border border-ink-950/20 rounded-xs uppercase">
-          # 06
-        </span>
-        <span className="font-mono text-xs font-bold uppercase tracking-wider text-ink-600">
-          GET IN TOUCH
-        </span>
-      </div>
-
-      {/* Interactive Smiley from Design */}
-      <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-        className="mb-6 flex justify-center"
+    <section id="contact" className="py-12 pb-24 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+      <RetroWindow
+        id="contact-window"
+        title="C:\ARYAN\contact"
+        showAccentBar={true}
+        className="shadow-retro-lg text-center"
       >
-        <Smiley size={76} />
-      </motion.div>
+        <div className="max-w-xl mx-auto space-y-3 mb-8">
+          <span className="font-mono text-xs font-bold px-2.5 py-0.5 bg-peach text-olive-950 rounded-xs uppercase tracking-wider inline-block">
+            STATUS: ONLINE & OPEN TO ROLES
+          </span>
 
-      {/* Bounding Box Title "LET'S TALK" */}
-      <div className="max-w-xl mx-auto mb-8">
-        <BoundingBox
-          borderColor="border-ink-950"
-          showHandles={true}
-          label="STATUS: ONLINE"
-          className="bg-white/80 py-6 sm:py-8 px-6 shadow-brutal-sm"
-        >
-          <WashiTape className="-top-3 left-6" angle={-2} width={70} />
-          <WashiTape className="-top-3 right-6" angle={2} width={70} />
-
-          <h2 className="font-pixel text-4xl sm:text-6xl font-bold text-ink-950 tracking-tight leading-none">
-            LET'S TALK
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-copper">
+            Let's Start a Conversation
           </h2>
 
-          <p className="mt-4 font-sans text-sm sm:text-base text-ink-700 max-w-md mx-auto leading-relaxed">
-            Got a project, a full-stack developer opening, or just want to discuss code and architecture? Send it over. I respond promptly.
+          <p className="font-sans text-xs sm:text-sm text-olive-800 leading-relaxed">
+            I am currently applying for Full Stack Developer and Front-End engineering roles. Reach out directly for project collaborations, internships, or full-time opportunities.
           </p>
-        </BoundingBox>
-      </div>
+        </div>
 
-      {/* Sticky Note Contact Card */}
-      <div className="max-w-lg mx-auto">
-        <StickyNote color="yellow" angle={-0.5} className="text-left p-6 sm:p-8">
-          <div className="flex items-center justify-between border-b border-brand-yellow-border/70 pb-3 mb-4">
-            <span className="font-handwriting text-2xl font-bold text-ink-950">
-              direct dispatch ⚡
+        {/* Dispatch Box */}
+        <div className="bg-white border-2 border-olive-900 rounded-lg p-6 max-w-lg mx-auto shadow-retro-sm text-left mb-8">
+          <div className="flex items-center justify-between pb-3 mb-4 border-b border-olive-900/10">
+            <span className="font-mono text-xs font-bold text-olive-700 uppercase">
+              Direct Mail Dispatch
             </span>
-            <span className="font-mono text-[11px] bg-white/90 px-2 py-0.5 rounded-xs border border-ink-950/15 text-ink-800 font-semibold">
-              aryannegiofficial@gmail.com
+            <span className="font-mono text-xs font-semibold text-copper">
+              {personal.email}
             </span>
           </div>
 
-          <p className="text-xs sm:text-sm font-sans text-ink-800 leading-relaxed mb-6">
-            Currently open to full-time roles, developer internships, and select freelance engineering contracts. Let's make something remarkable together.
-          </p>
-
-          {/* Quick Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3">
-            {/* Direct Mailto */}
             <a
-              href={`mailto:${personal.email}?subject=Hello%20Aryan%20%E2%80%94%20Opportunity%20Inquiry`}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-ink-950 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-ink-950 hover:bg-brand-blue hover:border-brand-blue transition-all duration-150 shadow-brutal-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              href={`mailto:${personal.email}?subject=Opportunity%20Inquiry%20%E2%80%94%20Aryan%20Negi`}
+              className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-olive-900 text-white font-mono text-xs font-bold rounded-sm border-2 border-olive-900 hover:bg-copper transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
             >
               <Send className="w-4 h-4" />
-              <span>[ SEND EMAIL ]</span>
+              <span>SEND EMAIL</span>
             </a>
 
-            {/* Copy Email Button */}
             <button
               onClick={copyEmailToClipboard}
-              className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white text-ink-950 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-ink-950 hover:bg-brand-mint transition-all duration-150 shadow-brutal-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-olive-900 font-mono text-xs font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
               title="Copy email to clipboard"
             >
               {copied ? (
@@ -109,59 +76,55 @@ export const Contact: React.FC = () => {
             </button>
           </div>
 
-          {/* Phone & Direct details */}
-          <div className="mt-5 pt-4 border-t border-brand-yellow-border/70 flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-ink-700">
+          <div className="mt-4 pt-3 border-t border-olive-900/10 flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-olive-700">
             <a
               href={`tel:${personal.phone.replace(/[^0-9+]/g, '')}`}
-              className="inline-flex items-center gap-1.5 hover:text-ink-950 font-medium"
+              className="inline-flex items-center gap-1.5 hover:text-copper transition-colors font-medium"
             >
-              <Phone className="w-3.5 h-3.5 text-brand-blue" />
+              <Phone className="w-3.5 h-3.5 text-copper" />
               <span>{personal.phone}</span>
             </a>
-            <span className="text-ink-500">📍 {personal.location}</span>
+            <span>📍 {personal.location}</span>
           </div>
-        </StickyNote>
-      </div>
+        </div>
 
-      {/* Social Links Row (matching bottom panel of design reference) */}
-      <div className="mt-12 pt-8 border-t border-dashed border-ink-200 flex flex-wrap items-center justify-center gap-4 sm:gap-6 font-mono text-xs font-bold uppercase tracking-wider text-ink-800">
-        <a
-          href={personal.social.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-ink-950/20 rounded-xs hover:bg-brand-yellow transition-colors shadow-xs"
-        >
-          <GithubIcon className="w-3.5 h-3.5" />
-          <span>GITHUB</span>
-          <ExternalLink className="w-3 h-3 text-ink-400" />
-        </a>
+        {/* Quick External Links Row */}
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <a
+            href={personal.social.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-olive-900/20 rounded-xs text-xs font-mono font-bold text-olive-800 hover:text-copper transition-colors"
+          >
+            <GithubIcon className="w-3.5 h-3.5" />
+            <span>GITHUB</span>
+            <ExternalLink className="w-3 h-3 text-olive-500" />
+          </a>
 
-        <a
-          href={personal.social.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-ink-950/20 rounded-xs hover:bg-brand-sky transition-colors shadow-xs"
-        >
-          <LinkedinIcon className="w-3.5 h-3.5" />
-          <span>LINKEDIN</span>
-          <ExternalLink className="w-3 h-3 text-ink-400" />
-        </a>
+          <a
+            href={personal.social.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-olive-900/20 rounded-xs text-xs font-mono font-bold text-olive-800 hover:text-copper transition-colors"
+          >
+            <LinkedinIcon className="w-3.5 h-3.5" />
+            <span>LINKEDIN</span>
+            <ExternalLink className="w-3 h-3 text-olive-500" />
+          </a>
 
-        <a
-          href={`mailto:${personal.email}`}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-ink-950/20 rounded-xs hover:bg-brand-mint transition-colors shadow-xs"
-        >
-          <Mail className="w-3.5 h-3.5" />
-          <span>EMAIL</span>
-        </a>
+          <a
+            href={personal.resumePdfUrl}
+            download="Aryan_Negi_Resume.pdf"
+            className="inline-flex items-center gap-1.5 px-3 py-1 bg-peach text-olive-950 border border-olive-900/20 rounded-xs text-xs font-mono font-bold hover:bg-peach-dark hover:text-white transition-colors"
+          >
+            <span>DOWNLOAD RESUME (PDF)</span>
+          </a>
+        </div>
+      </RetroWindow>
 
-        <a
-          href={personal.resumePdfUrl}
-          download="Aryan_Negi_Resume.pdf"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-yellow border border-ink-950 rounded-xs hover:bg-amber-300 transition-colors shadow-xs"
-        >
-          <span>RESUME (PDF)</span>
-        </a>
+      {/* Dock Bar at bottom (Matching Design 2 Panel 1 & 2 & 3) */}
+      <div className="mt-12 flex justify-center">
+        <DockBar />
       </div>
     </section>
   );

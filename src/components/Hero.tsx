@@ -1,152 +1,157 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Download, Mail, MapPin } from 'lucide-react';
+import { Download, Mail, MapPin, Sparkles } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
-import { BoundingBox } from './ui/BoundingBox';
-import { WashiTape } from './ui/WashiTape';
+import { RetroWindow } from './ui/RetroWindow';
+import { DesktopFolder } from './ui/DesktopFolder';
+import { ProfileAppIcon } from './ui/ProfileAppIcon';
+import { DockBar } from './ui/DockBar';
 
 export const Hero: React.FC = () => {
   const { personal } = portfolioData;
 
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <section
-      id="home"
-      className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto overflow-hidden"
-    >
-      {/* Decorative top tags & handwriting */}
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6 sm:mb-8">
-        <motion.div
-          initial={{ opacity: 0.9, y: -4 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
-          className="flex items-center gap-2"
-        >
-          <span className="bg-brand-mint text-ink-950 font-mono text-xs px-2.5 py-1 rounded-sm border border-ink-950/20 shadow-xs uppercase tracking-wider font-semibold">
-            ✦ MAKE THINGS
-          </span>
-          <span className="bg-brand-yellow text-ink-950 font-mono text-xs px-2.5 py-1 rounded-sm border border-ink-950/20 shadow-xs uppercase tracking-wider font-semibold">
-            ⚡ SOLVE REAL PROBLEMS
-          </span>
-        </motion.div>
+    <section id="profile" className="pt-8 sm:pt-14 pb-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+      {/* 1. TOP DESKTOP SCREEN (Matching Panel 1 of Design 2) */}
+      <div className="relative py-8 sm:py-12 border-b-2 border-dashed border-olive-900/20 mb-12">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
+          {/* Left Desktop Icons */}
+          <div className="flex lg:flex-col items-center justify-center gap-4 sm:gap-6 shrink-0 order-2 lg:order-1">
+            <ProfileAppIcon label="profile" onClick={() => scrollToSection('profile')} />
+            <DesktopFolder label="works" onClick={() => scrollToSection('works')} />
+            <DesktopFolder label="experience" onClick={() => scrollToSection('experience')} />
+          </div>
 
-        {/* Handwritten annotation */}
-        <motion.div
-          initial={{ opacity: 0.9, x: 4 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.2 }}
-          className="flex items-center gap-1.5 font-handwriting text-ink-700 text-xl sm:text-2xl"
-        >
-          <span>my name is</span>
-          <span className="text-brand-blue text-2xl font-bold">↓</span>
-        </motion.div>
+          {/* Center: Grand Serif PORTFOLIO Display (From Design 2) */}
+          <div className="text-center order-1 lg:order-2 flex-1 my-2 px-2">
+            <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-olive-600/90 tracking-widest font-normal uppercase select-none leading-none">
+              PORTFOLIO
+            </h1>
+            <p className="font-mono text-xs sm:text-sm text-olive-700 mt-2 tracking-widest uppercase">
+              C:\ARYAN\DESKTOP // FULL STACK DEVELOPER
+            </p>
+          </div>
+
+          {/* Right Desktop Icons */}
+          <div className="flex lg:flex-col items-center justify-center gap-4 sm:gap-6 shrink-0 order-3">
+            <DesktopFolder label="contact" onClick={() => scrollToSection('contact')} />
+            <DesktopFolder
+              label="resume"
+              href={personal.resumePdfUrl}
+              download="Aryan_Negi_Resume.pdf"
+            />
+            <DesktopFolder label="tools" onClick={() => scrollToSection('tools')} />
+          </div>
+        </div>
+
+        {/* Center Dock Bar (Matching Design 2 Panel 1) */}
+        <div className="mt-8 sm:mt-10 flex justify-center">
+          <DockBar />
+        </div>
       </div>
 
-      {/* Main Name Bounding Box (Figma Canvas Style) */}
+      {/* 2. PROFILE WINDOW (Matching Panel 2 C:\ELAINE\portfolio of Design 2) */}
       <motion.div
-        initial={{ opacity: 0.95, scale: 0.99 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.2 }}
-        className="relative my-4"
-      >
-        <BoundingBox
-          borderColor="border-brand-blue"
-          showHandles={true}
-          label="DEV.PROD // 2026"
-          className="bg-white/70 backdrop-blur-xs py-7 sm:py-12 px-4 sm:px-12 text-center shadow-xs"
-        >
-          {/* Subtle tape over top edge */}
-          <WashiTape className="-top-3 left-44" angle={-1.5} width={75} />
-          <WashiTape className="-top-3 right-12" angle={2} width={75} />
-
-          {/* Availability pill above name */}
-          <div className="inline-flex items-center gap-2 mb-3 bg-emerald-50 text-emerald-800 border border-emerald-300 px-3 py-0.5 rounded-full text-xs font-mono">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block" />
-            <span>{personal.availability}</span>
-          </div>
-
-          {/* Candidate Name in Pixel Display Font */}
-          <h1 className="font-pixel text-3xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-ink-950 font-bold leading-none select-none my-2 break-words">
-            {personal.name}
-          </h1>
-
-          {/* Role & Location Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-4 text-xs sm:text-sm font-mono text-ink-700">
-            <span className="bg-brand-sky/80 px-2.5 py-1 rounded-sm border border-brand-sky-border text-ink-900 font-semibold">
-              {personal.title}
-            </span>
-            <span className="hidden sm:inline-block text-ink-400">•</span>
-            <span className="flex items-center gap-1 bg-white/90 px-2.5 py-1 rounded-sm border border-ink-200 text-ink-700">
-              <MapPin className="w-3.5 h-3.5 text-rose-500" />
-              <span>{personal.location}</span>
-            </span>
-            <span className="hidden sm:inline-block text-ink-400">•</span>
-            <span className="bg-brand-lavender/80 px-2.5 py-1 rounded-sm border border-brand-lavender-border text-ink-900 font-medium">
-              Delhi University
-            </span>
-          </div>
-        </BoundingBox>
-      </motion.div>
-
-      {/* Positioning Statement */}
-      <motion.div
-        initial={{ opacity: 0.95, y: 4 }}
+        initial={{ opacity: 0.95, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.2 }}
-        className="text-center mt-6 sm:mt-8 max-w-2xl mx-auto"
+        className="max-w-3xl mx-auto"
       >
-        <p className="text-xl sm:text-2xl md:text-3xl font-sans font-medium text-ink-900 leading-snug">
-          I build software that{' '}
-          <span className="relative inline-block font-semibold">
-            gets out of your way.
-            <span className="absolute bottom-0 left-0 w-full h-2 bg-brand-yellow/60 -z-10 rounded-sm -rotate-0.5" />
-          </span>{' '}
-          <span className="inline-block animate-pulse">🌸</span>
-        </p>
+        <RetroWindow
+          id="portfolio-window"
+          title="C:\ARYAN\portfolio"
+          showAccentBar={false}
+          className="shadow-retro-lg"
+        >
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8 sm:gap-10">
+            {/* Left: Circular Avatar Photo with dark outline (From Design 2) */}
+            <div className="relative shrink-0">
+              <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full border-4 border-olive-900 bg-olive-100 overflow-hidden shadow-sm flex items-center justify-center relative">
+                {/* Stylized Developer Avatar */}
+                <div className="w-full h-full bg-gradient-to-br from-olive-100 via-peach-light/40 to-olive-200 flex flex-col items-center justify-center p-4 text-center">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-olive-800 text-white flex items-center justify-center font-serif text-3xl sm:text-4xl shadow-inner mb-1 border-2 border-olive-900">
+                    AN
+                  </div>
+                  <span className="font-mono text-[11px] font-bold text-olive-900 bg-white/90 px-2 py-0.5 rounded-full border border-olive-300">
+                    Delhi, IN 🇮🇳
+                  </span>
+                </div>
+              </div>
 
-        <p className="mt-3 text-sm sm:text-base text-ink-600 font-sans max-w-xl mx-auto leading-relaxed">
-          Full Stack Developer with hands-on experience building custom Shopify themes, React web applications, and AI-driven platforms.
-        </p>
+              {/* Status Badge */}
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-emerald-100 text-emerald-900 border-2 border-olive-900 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold whitespace-nowrap shadow-xs flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>ONLINE</span>
+              </div>
+            </div>
 
-        {/* CTAs */}
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-8">
-          {/* Primary CTA: Contact Me */}
-          <button
-            onClick={scrollToContact}
-            className="group inline-flex items-center gap-2 px-6 py-3 bg-ink-950 text-white font-mono text-sm font-bold rounded-sm border-2 border-ink-950 hover:bg-brand-blue hover:border-brand-blue transition-all duration-200 shadow-brutal active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
-          >
-            <Mail className="w-4 h-4 transition-transform group-hover:scale-110" />
-            <span>[ CONTACT ME ]</span>
-          </button>
+            {/* Right: Bio & Name Hierarchy (Matching Design 2 typography) */}
+            <div className="flex-1 text-center sm:text-left space-y-2">
+              <span className="font-mono text-sm sm:text-base text-olive-700 block font-medium">
+                hi! i'm
+              </span>
 
-          {/* Secondary CTA: Download Resume */}
-          <a
-            href={personal.resumePdfUrl}
-            download="Aryan_Negi_Resume.pdf"
-            className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-ink-950 font-mono text-sm font-bold rounded-sm border-2 border-ink-950 hover:bg-brand-yellow transition-all duration-200 shadow-brutal active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
-            title="Download Aryan's Resume (PDF)"
-          >
-            <Download className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
-            <span>DOWNLOAD RESUME</span>
-          </a>
-        </div>
+              {/* Candidate Name in Copper Orange */}
+              <h2 className="font-serif text-3xl sm:text-5xl font-bold text-copper leading-tight tracking-tight">
+                {personal.firstName} {personal.lastName}
+              </h2>
 
-        {/* Scroll down indicator */}
-        <div className="mt-12 flex justify-center">
-          <a
-            href="#about"
-            className="inline-flex flex-col items-center gap-1 font-mono text-[11px] text-ink-500 hover:text-ink-950 transition-colors"
-          >
-            <span className="font-handwriting text-base text-ink-600">scroll to explore</span>
-            <ArrowDown className="w-4 h-4 animate-bounce text-brand-blue" />
-          </a>
-        </div>
+              {/* Role Title */}
+              <p className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-olive-800">
+                I'M A {personal.title.toUpperCase()}
+              </p>
+
+              {/* Quote / Positioning statement */}
+              <blockquote className="font-serif italic text-base sm:text-lg text-olive-700 pt-1 leading-snug">
+                "{personal.positioning}"
+              </blockquote>
+
+              <p className="text-xs sm:text-sm font-sans text-olive-800 pt-1 leading-relaxed">
+                {personal.bio.short}
+              </p>
+
+              {/* Metadata tags */}
+              <div className="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs font-mono text-olive-800">
+                <span className="inline-flex items-center gap-1 bg-olive-100 px-2.5 py-1 rounded-sm border border-olive-900/20 font-medium">
+                  <MapPin className="w-3.5 h-3.5 text-copper" />
+                  <span>{personal.location}</span>
+                </span>
+                <span className="inline-flex items-center gap-1 bg-peach-light/40 px-2.5 py-1 rounded-sm border border-olive-900/20 font-medium">
+                  <Sparkles className="w-3.5 h-3.5 text-copper" />
+                  <span>Delhi University</span>
+                </span>
+              </div>
+
+              {/* CTAs */}
+              <div className="pt-5 flex flex-wrap items-center justify-center sm:justify-start gap-3">
+                <button
+                  onClick={() => scrollToSection('contact')}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>CONTACT ME</span>
+                </button>
+
+                <a
+                  href={personal.resumePdfUrl}
+                  download="Aryan_Negi_Resume.pdf"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-olive-900 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                  title="Download Aryan's Resume (PDF)"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>DOWNLOAD RESUME</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </RetroWindow>
       </motion.div>
     </section>
   );
