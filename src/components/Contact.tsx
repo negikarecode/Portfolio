@@ -47,43 +47,44 @@ export const Contact: React.FC = () => {
         </div>
 
         {/* Dispatch Box */}
-        <div className="bg-white border-2 border-olive-900 rounded-lg p-6 sm:p-7 max-w-lg mx-auto shadow-retro-sm text-left mb-6">
-          <div className="flex items-center justify-between pb-3 mb-4 border-b border-olive-900/15">
-            <span className="font-mono text-xs font-bold text-olive-800 uppercase tracking-wide">
+        <div className="bg-white border-2 border-olive-900 rounded-lg p-5 sm:p-7 max-w-lg mx-auto shadow-retro-sm text-left mb-6 overflow-hidden">
+          {/* Email row header */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pb-3 mb-4 border-b border-olive-900/15">
+            <span className="font-mono text-xs font-bold text-olive-800 uppercase tracking-wide shrink-0">
               Direct Mail Dispatch
             </span>
-            <span className="font-mono text-xs sm:text-sm font-semibold text-copper">
+            <span className="font-mono text-xs sm:text-sm font-semibold text-copper break-all sm:break-normal select-all">
               {personal.email}
             </span>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3">
             {/* Working mailto: link */}
             <a
               href={`mailto:${personal.email}?subject=Opportunity%20Inquiry%20%E2%80%94%20Aryan%20Negi`}
-              className="retro-btn flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+              className="retro-btn flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:py-3 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
             >
-              <Send className="w-4 h-4" aria-hidden="true" />
-              <span>SEND EMAIL</span>
+              <Send className="w-4 h-4 shrink-0" aria-hidden="true" />
+              <span className="whitespace-nowrap">SEND EMAIL</span>
             </a>
 
             {/* Copy Email Button with visible feedback */}
             <button
               type="button"
               onClick={copyEmailToClipboard}
-              className="retro-btn inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] bg-white text-olive-900 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+              className="retro-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:py-3 min-h-[44px] bg-white text-olive-900 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
               title="Copy email to clipboard"
               aria-label="Copy email address to clipboard"
             >
               {copiedEmail ? (
                 <>
-                  <Check className="w-4 h-4 text-emerald-600 check-icon-pop" aria-hidden="true" />
-                  <span className="text-emerald-800 font-bold">COPIED! ✓</span>
+                  <Check className="w-4 h-4 text-emerald-600 check-icon-pop shrink-0" aria-hidden="true" />
+                  <span className="text-emerald-800 font-bold whitespace-nowrap">COPIED! ✓</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-4 h-4" aria-hidden="true" />
-                  <span>COPY EMAIL</span>
+                  <Copy className="w-4 h-4 shrink-0" aria-hidden="true" />
+                  <span className="whitespace-nowrap">COPY EMAIL</span>
                 </>
               )}
             </button>
@@ -94,41 +95,41 @@ export const Contact: React.FC = () => {
 
           {/* Direct Phone Dispatch */}
           {personal.phone && (
-            <div className="mt-4 pt-4 border-t border-olive-900/15">
-              <div className="flex items-center justify-between pb-2 mb-3">
-                <span className="font-mono text-xs font-bold text-olive-800 uppercase tracking-wide">
-                  Direct Line & WhatsApp
+            <div className="mt-5 pt-4 border-t border-olive-900/15">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pb-2 mb-3">
+                <span className="font-mono text-xs font-bold text-olive-800 uppercase tracking-wide shrink-0">
+                  Direct Line &amp; WhatsApp
                 </span>
-                <span className="font-mono text-xs sm:text-sm font-semibold text-copper">
+                <span className="font-mono text-xs sm:text-sm font-semibold text-copper whitespace-nowrap select-all">
                   {personal.phoneDisplay || personal.phone}
                 </span>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3">
                 <a
                   href={`tel:${personal.phone.replace(/[^0-9+]/g, '')}`}
-                  className="retro-btn flex-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+                  className="retro-btn flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:py-3 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
                 >
-                  <Phone className="w-4 h-4" aria-hidden="true" />
-                  <span>CALL DIRECT</span>
+                  <Phone className="w-4 h-4 shrink-0" aria-hidden="true" />
+                  <span className="whitespace-nowrap">CALL DIRECT</span>
                 </a>
 
                 <button
                   type="button"
                   onClick={copyPhoneToClipboard}
-                  className="retro-btn inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-white text-olive-900 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+                  className="retro-btn inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:py-3 min-h-[44px] bg-white text-olive-900 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
                   title="Copy phone number to clipboard"
                   aria-label="Copy phone number to clipboard"
                 >
                   {copiedPhone ? (
                     <>
-                      <Check className="w-4 h-4 text-emerald-600 check-icon-pop" aria-hidden="true" />
-                      <span className="text-emerald-800 font-bold">COPIED! ✓</span>
+                      <Check className="w-4 h-4 text-emerald-600 check-icon-pop shrink-0" aria-hidden="true" />
+                      <span className="text-emerald-800 font-bold whitespace-nowrap">COPIED! ✓</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-4 h-4" aria-hidden="true" />
-                      <span>COPY NUMBER</span>
+                      <Copy className="w-4 h-4 shrink-0" aria-hidden="true" />
+                      <span className="whitespace-nowrap">COPY NUMBER</span>
                     </>
                   )}
                 </button>
