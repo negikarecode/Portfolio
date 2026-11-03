@@ -13,16 +13,16 @@ export const DockBar: React.FC<DockBarProps> = ({ className = '' }) => {
       aria-label="Quick Action Dock"
       className={`inline-flex items-center gap-4 bg-olive-500/95 border-[2.5px] border-olive-900 rounded-2xl px-6 py-2.5 shadow-retro transition-all duration-300 hover:shadow-retro-lg ${className}`}
     >
-      {/* 1. LinkedIn: Sky Blue rounded square */}
+      {/* 1. LinkedIn: Official LinkedIn Blue rounded square */}
       <a
         href={personal.social.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#5FA8D3] border-2 border-olive-900 flex items-center justify-center shadow-xs transition-all duration-200 hover:-translate-y-1.5 hover:shadow-md active:translate-y-0 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+        className="group dock-icon-bounce relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#0A66C2] border-2 border-olive-900 flex items-center justify-center shadow-xs active:translate-y-0 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
         title="LinkedIn Profile (opens in new tab)"
-        aria-label="LinkedIn Profile"
+        aria-label="LinkedIn Profile (in)"
       >
-        <span className="font-sans font-bold text-lg sm:text-xl text-white tracking-tighter">
+        <span aria-hidden="true" className="font-sans font-bold text-lg sm:text-xl text-white tracking-tighter">
           in
         </span>
         <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity bg-olive-900 text-white text-[10px] font-mono px-2 py-0.5 rounded pointer-events-none whitespace-nowrap z-30 shadow-xs">
@@ -35,7 +35,7 @@ export const DockBar: React.FC<DockBarProps> = ({ className = '' }) => {
         href={personal.social.github}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#2B2D42] border-2 border-olive-900 flex items-center justify-center shadow-xs transition-all duration-200 hover:-translate-y-1.5 hover:shadow-md active:translate-y-0 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+        className="group dock-icon-bounce relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#2B2D42] border-2 border-olive-900 flex items-center justify-center shadow-xs active:translate-y-0 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
         title="GitHub Profile (opens in new tab)"
         aria-label="GitHub Profile"
       >

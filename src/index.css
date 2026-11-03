@@ -6,6 +6,14 @@
   :root {
     --graph-bg: #F4EEDB;
     --graph-line: rgba(88, 106, 76, 0.15);
+
+    /* Motion Tokens */
+    --dur-fast: 150ms;
+    --dur-base: 250ms;
+    --dur-slow: 400ms;
+    --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-pixel: steps(4, jump-end);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   body {
@@ -21,6 +29,11 @@
   }
 }
 
+/* Pause idle and looping animations when tab is hidden */
+html.tab-hidden * {
+  animation-play-state: paused !important;
+}
+
 /* Retro OS Window Styles */
 .retro-window {
   background-color: #FBF8F1;
@@ -28,11 +41,152 @@
   border-radius: 10px;
   box-shadow: 5px 5px 0px 0px rgba(54, 67, 44, 0.95);
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  opacity: 0.94;
+  transition: opacity var(--dur-base) ease, transform var(--dur-base) ease, box-shadow var(--dur-base) ease;
 }
 
 .retro-window:hover {
   box-shadow: 7px 7px 0px 0px rgba(54, 67, 44, 0.95);
+}
+
+/* Active window nearest viewport center */
+.retro-window.window-active {
+  opacity: 1;
+}
+
+.retro-window.window-active .retro-titlebar {
+  background-color: #5c6f4e;
+}
+
+/* Stepped retro window entrance (250ms, steps(4), once) */
+.retro-window-entering {
+  opacity: 0;
+  transform: scale(0.98) translateY(12px);
+}
+
+.retro-window-entered {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: transform var(--dur-base) var(--ease-pixel), opacity var(--dur-base) var(--ease-pixel);
+}
+
+/* Window Close Animation */
+.retro-window.window-closing {
+  transform: scale(0.9);
+  opacity: 0;
+  transition: transform var(--dur-fast) ease-out, opacity var(--dur-fast) ease-out;
+}
+
+/* Taskbar restore chip pop-in */
+.taskbar-chip-pop {
+  animation: taskbar-chip 200ms var(--ease-bounce) both;
+}
+
+@keyframes taskbar-chip {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Floating Back To Top button */
+.back-to-top-btn {
+  transition: opacity var(--dur-base) var(--ease-entrance), transform var(--dur-base) var(--ease-bounce), box-shadow var(--dur-fast) ease;
+}
+
+.back-to-top-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 4px 4px 0px 0px rgba(54, 67, 44, 0.95);
+}
+
+.back-to-top-btn:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 0px 0px 0px 0px transparent !important;
+}
+
+/* Smooth window body collapsible using grid-template-rows (allowed exception) */
+.window-body-grid {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows var(--dur-base) var(--ease-entrance);
+}
+
+.window-body-grid.is-minimized {
+  grid-template-rows: 0fr;
+}
+
+.window-body-inner {
+  overflow: hidden;
+}
+
+/* Retro Mechanical Button Active/Hover Interactions */
+.retro-btn {
+  transition: transform var(--dur-fast) ease, box-shadow var(--dur-fast) ease, background-color var(--dur-fast) ease;
+}
+
+.retro-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px 0px rgba(54, 67, 44, 0.95);
+}
+
+.retro-btn:active {
+  transform: translate(3px, 3px) !important;
+  box-shadow: 0px 0px 0px 0px transparent !important;
+}
+
+/* Desktop Folder Drop-in and Hover Animations */
+.desktop-folder-item {
+  animation: folder-drop-in var(--dur-slow) var(--ease-entrance) both;
+  animation-delay: calc(var(--stagger-idx, 0) * 60ms);
+}
+
+@keyframes folder-drop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Very slow idle float (desktop only >= 768px and prefers-reduced-motion: no-preference) */
+@media (min-width: 768px) {
+  .folder-idle-float {
+    animation: folder-idle 5s ease-in-out infinite;
+  }
+}
+
+@keyframes folder-idle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.desktop-folder-graphic {
+  transition: transform var(--dur-fast) var(--ease-bounce);
+}
+
+.desktop-icon-btn:hover .desktop-folder-graphic {
+  transform: translateY(-4px) rotate(-1.5deg);
+}
+
+.folder-opening {
+  animation: folder-open-flash 150ms ease-out forwards;
+}
+
+@keyframes folder-open-flash {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.12) translateY(-4px); filter: brightness(1.35) drop-shadow(0 0 6px rgba(239, 160, 114, 0.8)); }
+  100% { transform: scale(1); filter: brightness(1); }
 }
 
 /* Titlebar */
@@ -49,12 +203,14 @@
   font-weight: 700;
   letter-spacing: 0.5px;
   user-select: none;
+  transition: background-color var(--dur-base) ease;
 }
 
 /* Window Close Button */
 .retro-close-btn {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
   background-color: #E56B6F;
   border: 1.5px solid #B8474B;
   border-radius: 4px;
@@ -66,13 +222,13 @@
   font-weight: bold;
   line-height: 1;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--dur-fast) ease;
   box-shadow: 1px 1px 0px 0px rgba(54, 67, 44, 0.6);
 }
 
 .retro-close-btn:hover {
   background-color: #d8575b;
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .retro-close-btn:active {
@@ -97,7 +253,7 @@
   cursor: pointer;
   padding: 8px 10px;
   border-radius: 8px;
-  transition: all 0.2s ease;
+  transition: all var(--dur-fast) ease;
   user-select: none;
 }
 
@@ -122,6 +278,115 @@
   box-shadow: 4px 4px 0px 0px rgba(54, 67, 44, 0.9);
 }
 
+.dock-icon-bounce {
+  transition: transform var(--dur-fast) var(--ease-bounce), box-shadow var(--dur-fast) ease;
+}
+
+.dock-icon-bounce:hover {
+  transform: translateY(-4px) scale(1.06);
+}
+
+/* Clock colon blink */
+.clock-colon {
+  animation: colon-blink 1s steps(1, start) infinite;
+}
+
+@keyframes colon-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Slow pulse (2s loop) for online dots */
+.dot-pulse-slow {
+  animation: dot-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.92); }
+}
+
+/* Certificate button shine sweep */
+.shine-sweep-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-sweep-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  transition: transform 0.65s ease;
+}
+
+.shine-sweep-btn:hover::after {
+  transform: rotate(25deg) translate(380%, 0);
+}
+
+/* Screenshot loading flicker on first view (< 300ms) */
+.screenshot-loading-flicker {
+  animation: screenshot-flicker 280ms steps(3, jump-none) forwards;
+}
+
+@keyframes screenshot-flicker {
+  0% { opacity: 0.3; }
+  33% { opacity: 0.8; }
+  66% { opacity: 0.55; }
+  100% { opacity: 1; }
+}
+
+/* Checklist ticks pop-in */
+.check-icon-pop {
+  animation: check-pop var(--dur-fast) var(--ease-bounce) both;
+}
+
+@keyframes check-pop {
+  0% { opacity: 0; transform: scale(0.3); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* General Fade-and-Rise for scroll-reveal */
+.fade-rise-item {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--dur-slow) var(--ease-entrance), transform var(--dur-slow) var(--ease-entrance);
+}
+
+.fade-rise-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Alternating card entries (subtle left/right) */
+.fade-rise-left {
+  opacity: 0;
+  transform: translate(-8px, 8px);
+  transition: opacity var(--dur-slow) var(--ease-entrance), transform var(--dur-slow) var(--ease-entrance);
+}
+
+.fade-rise-right {
+  opacity: 0;
+  transform: translate(8px, 8px);
+  transition: opacity var(--dur-slow) var(--ease-entrance), transform var(--dur-slow) var(--ease-entrance);
+}
+
+.fade-rise-left.is-visible,
+.fade-rise-right.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
 /* Reduced Motion Override */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
@@ -129,5 +394,21 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .retro-window,
+  .retro-window-entering,
+  .fade-rise-item,
+  .fade-rise-left,
+  .fade-rise-right {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .desktop-folder-item {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .folder-idle-float {
+    animation: none !important;
   }
 }

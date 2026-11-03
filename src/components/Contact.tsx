@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
-import { Check, Copy, ExternalLink, Send, MapPin } from 'lucide-react';
+import { Check, Copy, ExternalLink, Send, MapPin, Phone } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 import { RetroWindow } from './ui/RetroWindow';
 import { GithubIcon, LinkedinIcon } from './ui/Icons';
 
 export const Contact: React.FC = () => {
   const { personal } = portfolioData;
-  const [copied, setCopied] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
 
   const copyEmailToClipboard = () => {
     navigator.clipboard.writeText(personal.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
+  const copyPhoneToClipboard = () => {
+    if (personal.phone) {
+      navigator.clipboard.writeText(personal.phone);
+      setCopiedPhone(true);
+      setTimeout(() => setCopiedPhone(false), 2000);
+    }
   };
 
   return (
@@ -23,8 +32,9 @@ export const Contact: React.FC = () => {
         className="shadow-retro-lg text-center"
       >
         <div className="max-w-xl mx-auto space-y-3 mb-8">
-          <span className="font-mono text-xs font-bold px-3 py-1 bg-peach text-olive-950 rounded-xs uppercase tracking-wider inline-block">
-            STATUS: ONLINE & OPEN TO ROLES
+          <span className="font-mono text-xs font-bold px-3 py-1 bg-peach text-olive-950 rounded-xs uppercase tracking-wider inline-flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-600 dot-pulse-slow inline-block" aria-hidden="true" />
+            <span>STATUS: ONLINE & OPEN TO ROLES</span>
           </span>
 
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-copper tracking-normal">
@@ -51,7 +61,7 @@ export const Contact: React.FC = () => {
             {/* Working mailto: link */}
             <a
               href={`mailto:${personal.email}?subject=Opportunity%20Inquiry%20%E2%80%94%20Aryan%20Negi`}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+              className="retro-btn flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
             >
               <Send className="w-4 h-4" aria-hidden="true" />
               <span>SEND EMAIL</span>
@@ -61,14 +71,14 @@ export const Contact: React.FC = () => {
             <button
               type="button"
               onClick={copyEmailToClipboard}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] bg-white text-olive-900 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+              className="retro-btn inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] bg-white text-olive-900 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
               title="Copy email to clipboard"
               aria-label="Copy email address to clipboard"
             >
-              {copied ? (
+              {copiedEmail ? (
                 <>
-                  <Check className="w-4 h-4 text-emerald-600" aria-hidden="true" />
-                  <span className="text-emerald-800 font-bold">COPIED!</span>
+                  <Check className="w-4 h-4 text-emerald-600 check-icon-pop" aria-hidden="true" />
+                  <span className="text-emerald-800 font-bold">COPIED! ✓</span>
                 </>
               ) : (
                 <>
@@ -77,7 +87,57 @@ export const Contact: React.FC = () => {
                 </>
               )}
             </button>
+            <span className="sr-only" role="status" aria-live="polite">
+              {copiedEmail ? "Email address copied to clipboard" : ""}
+            </span>
           </div>
+
+          {/* Direct Phone Dispatch */}
+          {personal.phone && (
+            <div className="mt-4 pt-4 border-t border-olive-900/15">
+              <div className="flex items-center justify-between pb-2 mb-3">
+                <span className="font-mono text-xs font-bold text-olive-800 uppercase tracking-wide">
+                  Direct Line & WhatsApp
+                </span>
+                <span className="font-mono text-xs sm:text-sm font-semibold text-copper">
+                  {personal.phoneDisplay || personal.phone}
+                </span>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a
+                  href={`tel:${personal.phone.replace(/[^0-9+]/g, '')}`}
+                  className="retro-btn flex-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+                >
+                  <Phone className="w-4 h-4" aria-hidden="true" />
+                  <span>CALL DIRECT</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={copyPhoneToClipboard}
+                  className="retro-btn inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-white text-olive-900 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+                  title="Copy phone number to clipboard"
+                  aria-label="Copy phone number to clipboard"
+                >
+                  {copiedPhone ? (
+                    <>
+                      <Check className="w-4 h-4 text-emerald-600 check-icon-pop" aria-hidden="true" />
+                      <span className="text-emerald-800 font-bold">COPIED! ✓</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4" aria-hidden="true" />
+                      <span>COPY NUMBER</span>
+                    </>
+                  )}
+                </button>
+                <span className="sr-only" role="status" aria-live="polite">
+                  {copiedPhone ? "Phone number copied to clipboard" : ""}
+                </span>
+              </div>
+            </div>
+          )}
 
           {/* Location row */}
           <div className="mt-4 pt-3.5 border-t border-olive-900/10 flex items-center justify-between text-xs sm:text-sm font-mono text-olive-800">
@@ -94,7 +154,7 @@ export const Contact: React.FC = () => {
             href={personal.social.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 min-h-[44px] bg-white border-2 border-olive-900/30 rounded-sm text-xs sm:text-sm font-mono font-bold text-olive-900 hover:text-copper hover:border-olive-900 transition-colors shadow-xs focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+            className="retro-btn inline-flex items-center gap-2 px-4 py-2 min-h-[44px] bg-white border-2 border-olive-900/30 rounded-sm text-xs sm:text-sm font-mono font-bold text-olive-900 hover:text-copper hover:border-olive-900 shadow-xs focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
             aria-label="Visit Aryan Negi's GitHub Profile (opens in new tab)"
           >
             <GithubIcon className="w-4 h-4" />
@@ -106,7 +166,7 @@ export const Contact: React.FC = () => {
             href={personal.social.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 min-h-[44px] bg-white border-2 border-olive-900/30 rounded-sm text-xs sm:text-sm font-mono font-bold text-olive-900 hover:text-copper hover:border-olive-900 transition-colors shadow-xs focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+            className="retro-btn inline-flex items-center gap-2 px-4 py-2 min-h-[44px] bg-white border-2 border-olive-900/30 rounded-sm text-xs sm:text-sm font-mono font-bold text-olive-900 hover:text-copper hover:border-olive-900 shadow-xs focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
             aria-label="Visit Aryan Negi's LinkedIn Profile (opens in new tab)"
           >
             <LinkedinIcon className="w-4 h-4" />
@@ -117,7 +177,7 @@ export const Contact: React.FC = () => {
           <a
             href={personal.resumePdfUrl}
             download="Aryan_Negi_Resume.pdf"
-            className="inline-flex items-center gap-2 px-4 py-2 min-h-[44px] bg-peach text-olive-950 border-2 border-olive-900/40 rounded-sm text-xs sm:text-sm font-mono font-bold hover:bg-peach-dark hover:text-white transition-colors shadow-xs focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+            className="retro-btn inline-flex items-center gap-2 px-4 py-2 min-h-[44px] bg-peach text-olive-950 border-2 border-olive-900/40 rounded-sm text-xs sm:text-sm font-mono font-bold hover:bg-peach-dark hover:text-white shadow-xs focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
             title="Download Aryan's Resume (PDF)"
           >
             <span>DOWNLOAD RESUME (PDF)</span>

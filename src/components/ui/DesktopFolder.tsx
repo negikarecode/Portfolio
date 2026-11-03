@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface DesktopFolderProps {
   label: string;
@@ -7,6 +7,7 @@ interface DesktopFolderProps {
   download?: string | boolean;
   className?: string;
   ariaLabel?: string;
+  staggerIndex?: number;
 }
 
 export const DesktopFolder: React.FC<DesktopFolderProps> = ({
@@ -16,11 +17,36 @@ export const DesktopFolder: React.FC<DesktopFolderProps> = ({
   download,
   className = '',
   ariaLabel,
+  staggerIndex = 0,
 }) => {
+  const [isOpening, setIsOpening] = useState(false);
+
+  const handleClick = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      onClick?.();
+      return;
+    }
+
+    setIsOpening(true);
+    if (onClick) {
+      setTimeout(() => {
+        setIsOpening(false);
+        onClick();
+      }, 150);
+    } else {
+      setTimeout(() => {
+        setIsOpening(false);
+      }, 150);
+    }
+  };
+
   const content = (
-    <div className={`desktop-icon-btn group focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none rounded-lg p-2 ${className}`}>
+    <div
+      className={`desktop-icon-btn desktop-folder-item folder-idle-float group focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none rounded-lg p-2 ${className}`}
+      style={{ ['--stagger-idx' as any]: staggerIndex }}
+    >
       {/* Manila folder SVG with blue floppy disk/doc inside */}
-      <div className="relative w-14 h-12 transition-transform duration-200 group-hover:scale-105 group-active:scale-95">
+      <div className={`relative w-14 h-12 desktop-folder-graphic ${isOpening ? 'folder-opening' : ''}`}>
         <svg
           viewBox="0 0 56 46"
           fill="none"
@@ -73,7 +99,7 @@ export const DesktopFolder: React.FC<DesktopFolderProps> = ({
       <a
         href={href}
         download={download}
-        onClick={onClick}
+        onClick={handleClick}
         aria-label={ariaLabel || `Open ${label} folder`}
         className="inline-block focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none rounded-lg"
       >
@@ -85,7 +111,7 @@ export const DesktopFolder: React.FC<DesktopFolderProps> = ({
   return (
     <button
       type="button"
-      onClick={onClick}
+      onClick={handleClick}
       aria-label={ariaLabel || `Navigate to ${label} section`}
       className="inline-block focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none rounded-lg text-left"
     >

@@ -161,11 +161,12 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
         {/* Modal Body / Image Viewer */}
         <div className="relative flex-1 bg-olive-950 flex items-center justify-center p-2 sm:p-4 min-h-[260px] max-h-[68vh] overflow-hidden">
           <img
+            key={currentImage.src}
             src={currentImage.src}
             alt={currentImage.alt}
             width={currentImage.width}
             height={currentImage.height}
-            className="max-h-[64vh] w-auto max-w-full object-contain rounded-sm shadow-md"
+            className="max-h-[64vh] w-auto max-w-full object-contain rounded-sm shadow-md transition-all duration-200 animate-in fade-in slide-in-from-right-3"
           />
 
           {/* Navigation Arrows for Multi-image */}

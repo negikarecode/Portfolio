@@ -70,6 +70,8 @@ export interface PortfolioData {
     availability: string;
     location: string;
     email: string;
+    phone?: string;
+    phoneDisplay?: string;
     social: {
       github: string;
       githubDisplay: string;

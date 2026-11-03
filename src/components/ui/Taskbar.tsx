@@ -6,6 +6,17 @@ export const Taskbar: React.FC = () => {
   const { closedWindows, restoreWindow, maximizedWindow, exitMaximize } = useWindows();
   const closedList = Object.entries(closedWindows);
 
+  React.useEffect(() => {
+    if (!maximizedWindow) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        exitMaximize();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [maximizedWindow, exitMaximize]);
+
   return (
     <>
       {/* 1. Fullscreen Maximized Window Overlay */}
@@ -60,7 +71,7 @@ export const Taskbar: React.FC = () => {
       {closedList.length > 0 && (
         <aside
           aria-label="Closed windows restore taskbar"
-          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-olive-900/95 text-white border-2 border-olive-950 rounded-xl px-4 py-2 shadow-retro flex items-center gap-3 backdrop-blur-md max-w-[95vw] overflow-x-auto"
+          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-olive-900/95 text-white border-2 border-olive-950 rounded-xl px-4 py-2 shadow-retro flex items-center gap-3 backdrop-blur-md max-w-[95vw] overflow-x-auto pb-[max(0.5rem,env(safe-area-inset-bottom))]"
         >
           <span className="font-mono text-xs font-bold text-peach shrink-0 uppercase tracking-wider">
             Taskbar ({closedList.length}):
@@ -72,7 +83,7 @@ export const Taskbar: React.FC = () => {
                 key={id}
                 type="button"
                 onClick={() => restoreWindow(id)}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-olive-800 hover:bg-copper border border-olive-700 text-xs font-mono font-medium transition-colors whitespace-nowrap focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+                className="taskbar-chip-pop inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-olive-800 hover:bg-copper border border-olive-700 text-xs font-mono font-medium transition-colors whitespace-nowrap focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
                 title={`Restore ${info.title}`}
                 aria-label={`Restore window ${info.title}`}
               >

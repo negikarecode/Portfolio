@@ -31,10 +31,13 @@
     <meta property="twitter:description" content="Full Stack Developer building web applications with React and Django, and customizing Shopify storefronts." />
     <meta property="twitter:image" content="https://aryan-negi.dev/og-image.png" />
 
-    <!-- Google Fonts: DM Serif Display, Space Mono, Plus Jakarta Sans, Caveat -->
+    <!-- Preload hero profile image for mobile LCP -->
+    <link rel="preload" as="image" href="/profile.webp" type="image/webp" fetchpriority="high">
+
+    <!-- Google Fonts: DM Serif Display, JetBrains Mono, Plus Jakarta Sans, Space Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
   </head>
   <body class="bg-[#F4EEDB] text-[#222B1E] font-sans antialiased selection:bg-[#EFA072] selection:text-[#222B1E] min-h-screen">
     <div id="root"></div>

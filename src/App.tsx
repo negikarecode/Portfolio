@@ -9,11 +9,28 @@ import { Education } from './components/Education';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { Taskbar } from './components/ui/Taskbar';
+import { BootSequence } from './components/ui/BootSequence';
+import { ScrollProgress } from './components/ui/ScrollProgress';
+import { BackToTop } from './components/ui/BackToTop';
 
 export const App: React.FC = () => {
+  React.useEffect(() => {
+    const handleVisibilityChange = () => {
+      document.documentElement.classList.toggle('tab-hidden', document.visibilityState === 'hidden');
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
+
   return (
     <WindowProvider>
       <div className="min-h-screen relative text-olive-900 selection:bg-peach selection:text-olive-950 flex flex-col justify-between">
+        {/* Session Boot Sequence Intro (First Visit Only, Non-Blocking, Skippable) */}
+        <BootSequence />
+
+        {/* Retro Reading Scroll Progress Indicator */}
+        <ScrollProgress />
+
         {/* Skip to Content for Accessibility */}
         <a
           href="#main-content"
@@ -37,6 +54,9 @@ export const App: React.FC = () => {
 
         {/* OS Desktop Bottom Taskbar & Fullscreen Modal */}
         <Taskbar />
+
+        {/* Floating Back to Top Button */}
+        <BackToTop />
 
         {/* OS Footer */}
         <Footer />

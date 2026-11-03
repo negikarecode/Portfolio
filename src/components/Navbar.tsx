@@ -6,8 +6,14 @@ import { useWindows } from '../context/WindowContext';
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [time, setTime] = useState('');
-  const { closedWindows, restoreWindow } = useWindows();
+  const [time, setTime] = useState<{ hours: string; minutes: string } | null>(null);
+  const { activeWindowId, closedWindows, restoreWindow } = useWindows();
+  const navContainerRef = React.useRef<HTMLElement>(null);
+  const [sliderStyle, setSliderStyle] = useState<{ left: number; width: number; opacity: number }>({
+    left: 0,
+    width: 0,
+    opacity: 0,
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,16 +24,40 @@ export const Navbar: React.FC = () => {
     // Retro system clock
     const updateClock = () => {
       const now = new Date();
-      setTime(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      setTime({ hours, minutes });
     };
     updateClock();
-    const interval = setInterval(updateClock, 30000);
+    const interval = setInterval(updateClock, 10000);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       clearInterval(interval);
     };
   }, []);
+
+  const navLinks = [
+    { id: 'portfolio-window', label: 'C:\\profile', href: '#portfolio-window' },
+    { id: 'works-window', label: 'C:\\works', href: '#works-window' },
+    { id: 'tools-window', label: 'C:\\tools', href: '#tools-window' },
+    { id: 'experience-window', label: 'C:\\experience', href: '#experience-window' },
+    { id: 'education-window', label: 'C:\\education', href: '#education-window' },
+    { id: 'contact-window', label: 'C:\\contact', href: '#contact-window' },
+  ];
+
+  // Update sliding highlight indicator position
+  useEffect(() => {
+    if (!navContainerRef.current) return;
+    const activeBtn = navContainerRef.current.querySelector<HTMLButtonElement>(`[data-nav-id="${activeWindowId}"]`);
+    if (activeBtn) {
+      setSliderStyle({
+        left: activeBtn.offsetLeft,
+        width: activeBtn.offsetWidth,
+        opacity: 1,
+      });
+    }
+  }, [activeWindowId]);
 
   // Handle ESC key to close mobile menu
   useEffect(() => {
@@ -39,15 +69,6 @@ export const Navbar: React.FC = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [mobileMenuOpen]);
-
-  const navLinks = [
-    { label: 'C:\\profile', href: '#portfolio-window' },
-    { label: 'C:\\works', href: '#works-window' },
-    { label: 'C:\\tools', href: '#tools-window' },
-    { label: 'C:\\experience', href: '#experience-window' },
-    { label: 'C:\\education', href: '#education-window' },
-    { label: 'C:\\contact', href: '#contact-window' },
-  ];
 
   const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
@@ -76,34 +97,56 @@ export const Navbar: React.FC = () => {
           <a
             href="#profile"
             className="flex items-center gap-1.5 bg-olive-900 text-white px-2.5 sm:px-3 py-1 rounded-sm text-xs font-mono font-bold tracking-wider hover:bg-copper transition-colors shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none shrink-0"
-            aria-label="Aryan Negi Portfolio Home"
+            aria-label="ARYAN.SYS — Portfolio Home"
           >
             <Terminal className="w-3.5 h-3.5 text-peach shrink-0" aria-hidden="true" />
             <span className="truncate">ARYAN.SYS</span>
           </a>
 
           {/* Desktop Navigation Links: Visible only >= 900px */}
-          <nav className="hidden min-[900px]:flex items-center gap-1.5" aria-label="System Navigation">
-            {navLinks.map((link) => (
-              <button
-                key={link.label}
-                type="button"
-                onClick={() => handleNavClick(link.href)}
-                className="px-2.5 py-1 text-xs font-mono font-medium text-olive-800 hover:text-olive-950 bg-white/60 hover:bg-peach/30 border border-olive-900/15 rounded-sm transition-all duration-150 active:translate-y-0.5 focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
-              >
-                {link.label}
-              </button>
-            ))}
+          <nav ref={navContainerRef} className="relative hidden min-[900px]:flex items-center gap-1.5 p-0.5" aria-label="System Navigation">
+            {/* Sliding highlight indicator */}
+            <div
+              className="absolute top-0.5 bottom-0.5 bg-olive-900 rounded-xs pointer-events-none transition-all duration-200 ease-out shadow-xs"
+              style={{
+                transform: `translateX(${sliderStyle.left}px)`,
+                width: `${sliderStyle.width}px`,
+                opacity: sliderStyle.opacity,
+              }}
+              aria-hidden="true"
+            />
+            {navLinks.map((link) => {
+              const isActive = link.id === activeWindowId;
+              return (
+                <button
+                  key={link.label}
+                  data-nav-id={link.id}
+                  type="button"
+                  onClick={() => handleNavClick(link.href)}
+                  className={`relative z-10 px-2.5 py-1 text-xs font-mono font-medium rounded-xs transition-colors duration-150 active:translate-y-0.5 focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none ${
+                    isActive
+                      ? 'text-white font-bold'
+                      : 'text-olive-800 hover:text-olive-950 bg-white/60 hover:bg-peach/30 border border-olive-900/15'
+                  }`}
+                >
+                  {link.label}
+                </button>
+              );
+            })}
           </nav>
         </div>
 
         {/* Right: Retro System Clock & Action CTAs */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-          {/* OS Clock */}
+          {/* OS Clock with Blinking Colon (paused when tab hidden) */}
           {time && (
             <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-white/70 border border-olive-900/20 rounded-sm font-mono text-xs text-olive-800 select-none">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" aria-hidden="true" />
-              <span>{time}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dot-pulse-slow" aria-hidden="true" />
+              <span>
+                {time.hours}
+                <span className="clock-colon mx-0.5 font-bold">:</span>
+                {time.minutes}
+              </span>
             </div>
           )}
 

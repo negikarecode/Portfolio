@@ -10,11 +10,13 @@ export const portfolioData: PortfolioData = {
     availability: "Open to roles & technical projects",
     location: "New Delhi, India",
     email: "aryannegiofficial@gmail.com",
+    phone: "+91-7011110627",
+    phoneDisplay: "+91 70111 10627",
     social: {
-      github: "https://github.com/aryan-negi",
-      githubDisplay: "github.com/aryan-negi",
-      linkedin: "https://linkedin.com/in/aryan-negi",
-      linkedinDisplay: "linkedin.com/in/aryan-negi",
+      github: "https://github.com/negikarecode",
+      githubDisplay: "github.com/negikarecode",
+      linkedin: "https://www.linkedin.com/in/aryannegi29/",
+      linkedinDisplay: "linkedin.com/in/aryannegi29",
     },
     bio: {
       headline: "I'm a full stack developer who gets a little too excited about making complicated things feel simple.",
@@ -78,8 +80,7 @@ export const portfolioData: PortfolioData = {
       ],
       techStack: ["React", "Python", "Django", "MySQL", "Tailwind CSS", "REST APIs"],
       links: {
-        // demo: "https://...",
-        // code: "https://github.com/..."
+        demo: "https://cuetmate.vercel.app/",
       },
       screenshots: [
         {
@@ -115,23 +116,22 @@ export const portfolioData: PortfolioData = {
       ],
       techStack: ["Shopify Liquid", "HTML5", "CSS3", "JavaScript", "Tailwind CSS", "Mobile UX"],
       links: {
-        // demo: "https://...",
-        // code: "https://github.com/..."
+        demo: "https://urbanessentialsindia.com/",
       },
       screenshots: [
-        {
-          src: "/projects/urban-essentials-1.webp",
-          alt: "Urban Essentials product page displaying stainless steel tiffin box, color variant options, price, and add to bag buttons",
-          caption: "Product page with color variant selector, stock status, and add-to-bag actions",
-          width: 1600,
-          height: 910,
-        },
         {
           src: "/projects/urban-essentials-2.webp",
           alt: "Urban Essentials homepage showing routine collection hero banner, product value badges, and featured carry collection",
           caption: "Storefront homepage with hero collection banner, feature badges, and featured backpack",
           width: 1600,
           height: 912,
+        },
+        {
+          src: "/projects/urban-essentials-1.webp",
+          alt: "Urban Essentials product page displaying stainless steel tiffin box, color variant options, price, and add to bag buttons",
+          caption: "Product page with color variant selector, stock status, and add-to-bag actions",
+          width: 1600,
+          height: 910,
         },
       ],
     },

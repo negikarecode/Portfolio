@@ -3,6 +3,8 @@ import React from 'react';
 interface RetroToolIconProps {
   name: string;
   category?: string;
+  delayMs?: number;
+  isVisible?: boolean;
   iconType: 
     | 'react' 
     | 'python' 
@@ -17,7 +19,12 @@ interface RetroToolIconProps {
     | 'api';
 }
 
-export const RetroToolIcon: React.FC<RetroToolIconProps> = ({ name, iconType }) => {
+export const RetroToolIcon: React.FC<RetroToolIconProps> = ({
+  name,
+  iconType,
+  delayMs = 0,
+  isVisible = true,
+}) => {
   const renderIcon = () => {
     switch (iconType) {
       case 'react':
@@ -100,8 +107,18 @@ export const RetroToolIcon: React.FC<RetroToolIconProps> = ({ name, iconType }) 
   };
 
   return (
-    <div className="flex flex-col items-center gap-2 group cursor-default select-none">
-      <div className="transition-transform duration-200 group-hover:scale-110 group-hover:-translate-y-1">
+    <div
+      className="flex flex-col items-center gap-2 group cursor-default select-none will-change-transform"
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'scale(1) translateY(0)' : 'scale(0.85) translateY(4px)',
+        transitionProperty: 'opacity, transform',
+        transitionDuration: '240ms',
+        transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+        transitionDelay: `${delayMs}ms`,
+      }}
+    >
+      <div className="transition-transform duration-150 group-hover:scale-110 group-hover:-translate-y-1.5" style={{ transitionTimingFunction: 'var(--ease-bounce)' }}>
         {renderIcon()}
       </div>
       <span className="font-mono text-xs font-medium text-olive-800 text-center tracking-tight group-hover:text-copper transition-colors">

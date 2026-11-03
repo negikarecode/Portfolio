@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { RetroWindow } from './ui/RetroWindow';
 import { RetroToolIcon } from './ui/RetroToolIcon';
+import { useInView } from '../hooks/useInView';
 
 interface ToolItem {
   name: string;
@@ -24,6 +25,38 @@ interface ToolGroup {
 }
 
 export const Tools: React.FC = () => {
+  const { ref, isInView } = useInView<HTMLElement>({ threshold: 0.1 });
+  const [displayCount, setDisplayCount] = useState(0);
+  const totalTools = 11;
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDisplayCount(totalTools);
+      return;
+    }
+
+    const duration = 600;
+    const startTime = performance.now();
+
+    const animateCount = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      const current = Math.floor(progress * totalTools);
+      setDisplayCount(current);
+
+      if (progress < 1) {
+        requestAnimationFrame(animateCount);
+      } else {
+        setDisplayCount(totalTools);
+      }
+    };
+
+    const rafId = requestAnimationFrame(animateCount);
+    return () => cancelAnimationFrame(rafId);
+  }, [isInView]);
+
   const toolGroups: ToolGroup[] = [
     {
       category: 'Frontend',
@@ -53,8 +86,10 @@ export const Tools: React.FC = () => {
     },
   ];
 
+  let globalToolIndex = 0;
+
   return (
-    <section id="tools" className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+    <section id="tools" ref={ref} className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
       <RetroWindow
         id="tools-window"
         title="C:\ARYAN\tools"
@@ -66,16 +101,19 @@ export const Tools: React.FC = () => {
             TOOLS & STACK
           </h2>
           <p className="font-serif italic text-base sm:text-lg text-olive-800 mt-1 leading-relaxed">
-            "Technical stack grouped by engineering domain."
+            "What I use to build and ship."
           </p>
         </div>
 
-        {/* Grouped Tool Sections: Frontend, Backend and Data, Tools */}
-        <div className="space-y-8">
-          {toolGroups.map((group) => (
+        {/* 3 Equal-Height Columns on Desktop, Stacked on Mobile with staggered entrance */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          {toolGroups.map((group, gIdx) => (
             <div
               key={group.category}
-              className="bg-white/80 border-2 border-olive-900/25 rounded-lg p-5 sm:p-6 shadow-retro-xs"
+              className={`bg-white/80 border-2 border-olive-900/25 rounded-lg p-5 sm:p-6 shadow-retro-xs flex flex-col h-full fade-rise-item ${
+                isInView ? 'is-visible' : ''
+              }`}
+              style={{ transitionDelay: `${gIdx * 100}ms` }}
             >
               {/* Group Header */}
               <div className="flex items-center justify-between pb-3 mb-5 border-b-2 border-olive-900/15">
@@ -91,22 +129,38 @@ export const Tools: React.FC = () => {
               </div>
 
               {/* Tool Icons Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5 sm:gap-6 items-center justify-items-center">
-                {group.tools.map((tool) => (
-                  <RetroToolIcon
-                    key={tool.name}
-                    name={tool.name}
-                    iconType={tool.iconType}
-                  />
-                ))}
+              <div className="grid grid-cols-2 gap-4 items-center justify-items-center flex-1 content-start">
+                {group.tools.map((tool, tIdx) => {
+                  const currentIdx = globalToolIndex++;
+                  return (
+                    <div
+                      key={tool.name}
+                      className={
+                        group.tools.length === 5 && tIdx === 4
+                          ? 'col-span-2 justify-self-center'
+                          : ''
+                      }
+                    >
+                      <RetroToolIcon
+                        name={tool.name}
+                        iconType={tool.iconType}
+                        delayMs={currentIdx * 35}
+                        isVisible={isInView}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Footnote bar (Clean count: exactly 11 tools) */}
+        {/* Footnote bar (Clean count: animated count-up to 11 with screen reader fallback) */}
         <div className="mt-8 pt-5 border-t-2 border-dashed border-olive-900/15 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm font-mono text-olive-800">
-          <span>11 tools</span>
+          <span aria-label="11 tools">
+            <span aria-hidden="true" className="tools-counter-badge">{displayCount} tools</span>
+            <span className="sr-only">11 tools</span>
+          </span>
           <span className="font-bold text-copper">Used across my projects</span>
         </div>
       </RetroWindow>

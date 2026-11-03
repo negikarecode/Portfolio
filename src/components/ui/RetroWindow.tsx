@@ -21,6 +21,7 @@ export const RetroWindow: React.FC<RetroWindowProps> = ({
     closedWindows,
     minimizedWindows,
     maximizedWindow,
+    activeWindowId,
     toggleMinimize,
     toggleMaximize,
     closeWindow,
@@ -29,6 +30,46 @@ export const RetroWindow: React.FC<RetroWindowProps> = ({
   const isClosed = Boolean(closedWindows[id]);
   const isMinimized = Boolean(minimizedWindows[id]);
   const isMaximized = maximizedWindow?.id === id;
+  const isActive = activeWindowId === id;
+
+  const [hasRevealed, setHasRevealed] = React.useState(false);
+  const [isClosing, setIsClosing] = React.useState(false);
+  const windowRef = React.useRef<HTMLElement>(null);
+
+  const handleClose = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      closeWindow(id, title);
+      return;
+    }
+    setIsClosing(true);
+    setTimeout(() => {
+      closeWindow(id, title);
+    }, 150);
+  };
+
+  React.useEffect(() => {
+    // If reduced motion is requested, reveal immediately
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setHasRevealed(true);
+      return;
+    }
+
+    const node = windowRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setHasRevealed(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   if (isClosed) {
     // Window is closed and available in bottom taskbar
@@ -37,35 +78,38 @@ export const RetroWindow: React.FC<RetroWindowProps> = ({
 
   return (
     <article
+      ref={windowRef}
       id={id}
-      className={`retro-window transition-all duration-200 scroll-mt-24 ${className}`}
+      className={`retro-window scroll-mt-20 sm:scroll-mt-24 ${
+        hasRevealed ? 'retro-window-entered' : 'retro-window-entering'
+      } ${isActive ? 'window-active' : ''} ${isClosing ? 'window-closing' : ''} ${className}`}
       aria-labelledby={`${id}-title`}
     >
       {/* Retro DOS Window Titlebar */}
       <div className="retro-titlebar">
         <div className="flex items-center gap-2 overflow-hidden">
-          <span className="w-2 h-2 rounded-full bg-peach inline-block animate-pulse shrink-0" aria-hidden="true" />
+          <span className="w-2.5 h-2.5 rounded-full bg-peach inline-block animate-pulse shrink-0" aria-hidden="true" />
           <span id={`${id}-title`} className="truncate font-mono tracking-wider font-bold">
             {title}
           </span>
         </div>
 
-        {/* Window Controls with visible focus rings & aria-labels */}
+        {/* Window Controls: Accessible hit area >= 32px desktop, >= 44px mobile touch */}
         <div className="flex items-center gap-1.5 shrink-0" role="toolbar" aria-label={`Window controls for ${title}`}>
           {/* Minimize / Collapse Body */}
           <button
             type="button"
             onClick={() => toggleMinimize(id)}
-            className="w-5 h-5 bg-olive-700 hover:bg-olive-600 border border-olive-900 rounded-xs flex items-center justify-center text-white text-[10px] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+            className="w-8 h-8 sm:w-7 sm:h-7 min-w-[32px] min-h-[32px] sm:min-w-[28px] sm:min-h-[28px] bg-olive-700 hover:bg-olive-600 border border-olive-900 rounded-xs flex items-center justify-center text-white text-[10px] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
             title={isMinimized ? `Expand ${title}` : `Minimize ${title}`}
             aria-label={isMinimized ? `Expand ${title}` : `Minimize ${title}`}
             aria-expanded={!isMinimized}
             aria-controls={`${id}-body`}
           >
             {isMinimized ? (
-              <ChevronDown className="w-3 h-3 stroke-[2.5]" />
+              <ChevronDown className="w-3.5 h-3.5 stroke-[2.5]" />
             ) : (
-              <Minus className="w-3 h-3 stroke-[2.5]" />
+              <Minus className="w-3.5 h-3.5 stroke-[2.5]" />
             )}
           </button>
 
@@ -73,22 +117,22 @@ export const RetroWindow: React.FC<RetroWindowProps> = ({
           <button
             type="button"
             onClick={() => toggleMaximize(id, title, children)}
-            className="w-5 h-5 bg-olive-700 hover:bg-olive-600 border border-olive-900 rounded-xs flex items-center justify-center text-white text-[9px] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+            className="w-8 h-8 sm:w-7 sm:h-7 min-w-[32px] min-h-[32px] sm:min-w-[28px] sm:min-h-[28px] bg-olive-700 hover:bg-olive-600 border border-olive-900 rounded-xs flex items-center justify-center text-white text-[9px] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
             title={isMaximized ? "Exit fullscreen" : `Maximize ${title}`}
             aria-label={isMaximized ? "Exit fullscreen" : `Maximize ${title}`}
           >
-            <Square className="w-2.5 h-2.5 stroke-[2.5]" />
+            <Square className="w-3 h-3 stroke-[2.5]" />
           </button>
 
           {/* Close Window (Hides window and adds to restore taskbar) */}
           <button
             type="button"
-            onClick={() => closeWindow(id, title)}
-            className="retro-close-btn focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+            onClick={handleClose}
+            className="retro-close-btn w-8 h-8 sm:w-7 sm:h-7 min-w-[32px] min-h-[32px] sm:min-w-[28px] sm:min-h-[28px] focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
             title={`Close ${title} (can restore from bottom taskbar)`}
             aria-label={`Close ${title}`}
           >
-            <X className="w-3 h-3 stroke-[3]" />
+            <X className="w-3.5 h-3.5 stroke-[3]" />
           </button>
         </div>
       </div>
@@ -96,13 +140,17 @@ export const RetroWindow: React.FC<RetroWindowProps> = ({
       {/* Peach accent bar if enabled */}
       {showAccentBar && !isMinimized && <div className="retro-accent-bar" aria-hidden="true" />}
 
-      {/* Window Body */}
+      {/* Window Body: Smooth collapsible via grid-template-rows */}
       <div
         id={`${id}-body`}
-        hidden={isMinimized}
-        className={isMinimized ? 'hidden' : 'block p-6 sm:p-8 lg:p-10'}
+        aria-hidden={isMinimized}
+        className={`window-body-grid ${isMinimized ? 'is-minimized' : ''}`}
       >
-        {children}
+        <div className="window-body-inner">
+          <div className="p-6 sm:p-8 lg:p-10">
+            {children}
+          </div>
+        </div>
       </div>
 
       {/* Collapsed notice if minimized */}

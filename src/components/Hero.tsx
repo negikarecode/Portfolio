@@ -29,9 +29,9 @@ export const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6">
           {/* Left Desktop Folders */}
           <div className="flex lg:flex-col items-center justify-center gap-2 sm:gap-4 shrink-0 order-2 lg:order-1">
-            <ProfileAppIcon label="profile" onClick={() => handleFolderClick('portfolio-window')} />
-            <DesktopFolder label="works" onClick={() => handleFolderClick('works-window')} />
-            <DesktopFolder label="tools" onClick={() => handleFolderClick('tools-window')} />
+            <ProfileAppIcon label="profile" staggerIndex={0} onClick={() => handleFolderClick('portfolio-window')} />
+            <DesktopFolder label="works" staggerIndex={1} onClick={() => handleFolderClick('works-window')} />
+            <DesktopFolder label="tools" staggerIndex={2} onClick={() => handleFolderClick('tools-window')} />
           </div>
 
           {/* Center: Candidate Name in Serif Display with clamp() */}
@@ -40,28 +40,17 @@ export const Hero: React.FC = () => {
               {personal.name}
             </h1>
 
-            {/* Subtitle & Status Chip */}
-            <div className="mt-2.5 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm font-mono text-olive-800">
-              <span className="tracking-widest uppercase font-semibold">
-                C:\ARYAN\DESKTOP // FULL STACK DEVELOPER
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-mono text-xs font-bold shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" aria-hidden="true" />
-                <span>Open to roles</span>
-              </span>
-            </div>
-
-            {/* Factual one line from site stack & projects */}
-            <p className="mt-2 text-xs sm:text-sm font-sans text-olive-900/90 max-w-lg mx-auto leading-relaxed">
-              Building full stack web applications with React and Django, and customizing Shopify storefronts.
+            {/* Factual description beginning with role */}
+            <p className="mt-3 sm:mt-4 text-xs sm:text-sm font-sans text-olive-900/90 max-w-lg mx-auto leading-relaxed">
+              Full Stack Developer building web applications with React and Django, and customizing Shopify storefronts.
             </p>
 
             {/* First Viewport Primary CTAs */}
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+            <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-3">
               <button
                 type="button"
                 onClick={() => handleFolderClick('contact-window')}
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+                className="retro-btn inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
               >
                 <Mail className="w-4 h-4" aria-hidden="true" />
                 <span>Contact me</span>
@@ -70,7 +59,7 @@ export const Hero: React.FC = () => {
               <a
                 href={personal.resumePdfUrl}
                 download="Aryan_Negi_Resume.pdf"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-white text-olive-900 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+                className="retro-btn inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-white text-olive-900 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
                 title="Download Aryan's Resume (PDF)"
               >
                 <Download className="w-4 h-4" aria-hidden="true" />
@@ -81,10 +70,11 @@ export const Hero: React.FC = () => {
 
           {/* Right Desktop Folders */}
           <div className="flex lg:flex-col items-center justify-center gap-2 sm:gap-4 shrink-0 order-3">
-            <DesktopFolder label="experience" onClick={() => handleFolderClick('experience-window')} />
-            <DesktopFolder label="education" onClick={() => handleFolderClick('education-window')} />
+            <DesktopFolder label="experience" staggerIndex={3} onClick={() => handleFolderClick('experience-window')} />
+            <DesktopFolder label="education" staggerIndex={4} onClick={() => handleFolderClick('education-window')} />
             <DesktopFolder
               label="resume"
+              staggerIndex={5}
               href={personal.resumePdfUrl}
               download="Aryan_Negi_Resume.pdf"
             />
@@ -109,49 +99,40 @@ export const Hero: React.FC = () => {
             {/* Left: Circular Avatar with Real Photo */}
             <div className="relative shrink-0">
               <div
-                className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-olive-900 bg-olive-100 overflow-hidden shadow-sm flex items-center justify-center relative"
+                className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-olive-900 bg-olive-100 overflow-hidden shadow-sm flex items-center justify-center relative transition-transform duration-200 hover:scale-[1.03] hover:rotate-1"
               >
                 <img
                   src="/profile.webp"
                   alt="Aryan Negi — Full Stack Developer"
                   width={160}
                   height={160}
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority="high"
                   decoding="async"
                   className="w-full h-full object-cover object-top"
                 />
               </div>
 
-              {/* Status Badge */}
+              {/* Status Badge with slow pulse */}
               <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-emerald-100 text-emerald-900 border-2 border-olive-900 px-2.5 py-0.5 rounded-full text-xs font-mono font-bold whitespace-nowrap shadow-xs flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
+                <span className="w-2 h-2 rounded-full bg-emerald-500 dot-pulse-slow" aria-hidden="true" />
                 <span>ONLINE</span>
               </div>
             </div>
 
-            {/* Right: Bio & Profile Details (Removed duplicated name and role, leading with positioning quote) */}
+            {/* Right: Bio & Profile Details */}
             <div className="flex-1 text-center sm:text-left space-y-3">
-              {/* Positioning Quote */}
-              <blockquote className="font-serif italic text-xl sm:text-2xl text-copper font-medium leading-snug tracking-normal">
-                "{personal.positioning}"
-              </blockquote>
-
-              {/* About Paragraphs: font-size >= 16px, line-height 1.65, letter-spacing 0 */}
               <p className="text-base text-olive-900 leading-[1.65] font-sans tracking-normal">
-                {personal.bio.short}
-              </p>
-
-              <p className="text-base text-olive-800 leading-[1.65] font-sans tracking-normal hidden sm:block">
                 {personal.bio.paragraphs[0]}
               </p>
 
-              {/* Metadata Badges */}
+              {/* Metadata Badges with staggered pop-in */}
               <div className="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-2.5 text-xs font-mono text-olive-900">
-                <span className="inline-flex items-center gap-1.5 bg-olive-100 px-3 py-1 rounded-sm border border-olive-900/20 font-medium">
+                <span className="inline-flex items-center gap-1.5 bg-olive-100 px-3 py-1 rounded-sm border border-olive-900/20 font-medium check-icon-pop" style={{ animationDelay: '100ms' }}>
                   <MapPin className="w-3.5 h-3.5 text-copper" aria-hidden="true" />
                   <span>{personal.location}</span>
                 </span>
-                <span className="inline-flex items-center gap-1.5 bg-peach-light/40 px-3 py-1 rounded-sm border border-olive-900/20 font-medium">
+                <span className="inline-flex items-center gap-1.5 bg-peach-light/40 px-3 py-1 rounded-sm border border-olive-900/20 font-medium check-icon-pop" style={{ animationDelay: '180ms' }}>
                   <Sparkles className="w-3.5 h-3.5 text-copper" aria-hidden="true" />
                   <span>Delhi University</span>
                 </span>
@@ -162,7 +143,7 @@ export const Hero: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleFolderClick('contact-window')}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+                  className="retro-btn inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
                 >
                   <Mail className="w-4 h-4" aria-hidden="true" />
                   <span>Contact me</span>
@@ -171,7 +152,7 @@ export const Hero: React.FC = () => {
                 <a
                   href={personal.resumePdfUrl}
                   download="Aryan_Negi_Resume.pdf"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-white text-olive-900 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+                  className="retro-btn inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-white text-olive-900 font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
                   title="Download Aryan's Resume (PDF)"
                 >
                   <Download className="w-4 h-4" aria-hidden="true" />

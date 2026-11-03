@@ -2,9 +2,11 @@ import React from 'react';
 import { Award, Calendar, GraduationCap, MapPin, CheckCircle2, ExternalLink, FileText } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 import { RetroWindow } from './ui/RetroWindow';
+import { useInView } from '../hooks/useInView';
 
 export const Education: React.FC = () => {
   const { education, certifications } = portfolioData;
+  const { ref, isInView } = useInView<HTMLDivElement>({ threshold: 0.1 });
 
   return (
     <section id="education" className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -23,7 +25,7 @@ export const Education: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
           {/* Formal Education (md:col-span-7) */}
           <div className="md:col-span-7 space-y-4">
             <div className="flex items-center gap-2 mb-1">
@@ -33,12 +35,21 @@ export const Education: React.FC = () => {
               </h3>
             </div>
 
-            {education.map((edu) => (
+            {education.map((edu, idx) => (
               <div
                 key={edu.school}
-                className="bg-white border-2 border-olive-900 rounded-lg p-5 sm:p-6 shadow-retro-sm"
+                className={`bg-white border-2 border-olive-900 rounded-lg p-5 sm:p-6 shadow-retro-sm transition-all duration-200 hover:shadow-retro fade-rise-left ${
+                  isInView ? 'is-visible' : ''
+                }`}
+                style={{ transitionDelay: `${idx * 80}ms` }}
               >
-                <div className="flex flex-wrap items-start justify-between gap-2 pb-2.5 border-b border-olive-900/15">
+                <div
+                  className={`flex flex-wrap items-start justify-between gap-2 ${
+                    edu.details && edu.details.trim() !== ''
+                      ? 'pb-2.5 border-b border-olive-900/15'
+                      : ''
+                  }`}
+                >
                   <div>
                     <h4 className="font-serif font-bold text-xl text-copper tracking-normal">
                       {edu.degree}
@@ -80,7 +91,10 @@ export const Education: React.FC = () => {
             {certifications.map((cert) => (
               <div
                 key={cert.title}
-                className="bg-white border-2 border-olive-900 rounded-lg p-5 sm:p-6 shadow-retro-sm"
+                className={`bg-white border-2 border-olive-900 rounded-lg p-5 sm:p-6 shadow-retro-sm transition-all duration-200 hover:shadow-retro fade-rise-right ${
+                  isInView ? 'is-visible' : ''
+                }`}
+                style={{ transitionDelay: '100ms' }}
               >
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-peach text-olive-950 font-mono text-xs font-bold rounded-xs border border-olive-900/20 mb-2.5 uppercase tracking-wide">
                   <span>{cert.issuer}</span>
@@ -93,17 +107,17 @@ export const Education: React.FC = () => {
                 </h4>
 
                 <p className="mt-2 text-sm sm:text-base font-sans text-olive-900 leading-relaxed">
-                  Professional credential verifying front-end architecture, modern backend services, databases, and DevOps practices.
+                  Covers front-end development with React, back-end services, databases, and DevOps foundations.
                 </p>
 
-                {/* Primary Action: View Certificate PDF (single-line label, min 44px touch target) */}
+                {/* Primary Action: View Certificate PDF with subtle shine sweep on hover */}
                 {cert.certificatePdfUrl && (
                   <div className="mt-4">
                     <a
                       href={cert.certificatePdfUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2.5 min-h-[44px] bg-olive-900 text-white font-mono text-xs font-bold rounded-sm border-2 border-olive-900 hover:bg-copper transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none whitespace-nowrap"
+                      className="retro-btn shine-sweep-btn inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2.5 min-h-[44px] bg-olive-900 text-white font-mono text-xs font-bold rounded-sm border-2 border-olive-900 hover:bg-copper shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none whitespace-nowrap"
                     >
                       <FileText className="w-4 h-4 text-peach shrink-0" aria-hidden="true" />
                       <span className="whitespace-nowrap">View certificate</span>
@@ -112,7 +126,7 @@ export const Education: React.FC = () => {
                   </div>
                 )}
 
-                {/* Secondary Action: Only render credential verification link if explicitly in resume */}
+                {/* Secondary Action */}
                 {cert.credentialUrl && (
                   <a
                     href={cert.credentialUrl}
@@ -130,7 +144,13 @@ export const Education: React.FC = () => {
                     Core Competencies:
                   </span>
                   {cert.topicsCovered.map((skill, sIdx) => (
-                    <div key={sIdx} className="flex items-center gap-2 text-sm sm:text-base font-sans text-olive-900">
+                    <div
+                      key={sIdx}
+                      className={`flex items-center gap-2 text-sm sm:text-base font-sans text-olive-900 transition-all duration-300 ${
+                        isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
+                      }`}
+                      style={{ transitionDelay: `${sIdx * 40}ms` }}
+                    >
                       <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" aria-hidden="true" />
                       <span>{skill}</span>
                     </div>
