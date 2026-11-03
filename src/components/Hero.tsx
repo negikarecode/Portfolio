@@ -95,21 +95,17 @@ export const Hero: React.FC = () => {
           className="shadow-retro-lg"
         >
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8">
-            {/* Left: Circular Avatar with Alt Text & Fixed Whitespace Badge */}
+            {/* Left: Circular Avatar with Real Photo */}
             <div className="relative shrink-0">
               <div
                 className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-olive-900 bg-olive-100 overflow-hidden shadow-sm flex items-center justify-center relative"
-                aria-label="Aryan Negi initials avatar"
               >
-                <div className="w-full h-full bg-gradient-to-br from-olive-100 via-peach-light/40 to-olive-200 flex flex-col items-center justify-center p-4 text-center">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-olive-800 text-white flex items-center justify-center font-serif text-3xl sm:text-4xl shadow-inner mb-1 border-2 border-olive-900 select-none">
-                    AN
-                  </div>
-                  {/* Fixed location badge: nowrap with proper width */}
-                  <span className="font-mono text-xs font-bold text-olive-900 bg-white/95 px-2.5 py-0.5 rounded-full border border-olive-300 whitespace-nowrap shadow-2xs">
-                    New Delhi 🇮🇳
-                  </span>
-                </div>
+                <img
+                  src="/profile.png"
+                  alt="Aryan Negi — Full Stack Developer"
+                  loading="lazy"
+                  className="w-full h-full object-cover object-top"
+                />
               </div>
 
               {/* Status Badge */}
