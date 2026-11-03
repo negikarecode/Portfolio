@@ -11,7 +11,6 @@ import { Footer } from './components/Footer';
 import { Taskbar } from './components/ui/Taskbar';
 import { BootSequence } from './components/ui/BootSequence';
 import { ScrollProgress } from './components/ui/ScrollProgress';
-import { BackToTop } from './components/ui/BackToTop';
 
 export const App: React.FC = () => {
   React.useEffect(() => {
@@ -54,9 +53,6 @@ export const App: React.FC = () => {
 
         {/* OS Desktop Bottom Taskbar & Fullscreen Modal */}
         <Taskbar />
-
-        {/* Floating Back to Top Button */}
-        <BackToTop />
 
         {/* OS Footer */}
         <Footer />
