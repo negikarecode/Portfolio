@@ -59,9 +59,11 @@ export const Education: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="mt-3 text-base text-olive-900 font-sans leading-[1.65]">
-                  {edu.details}
-                </p>
+                {edu.details && edu.details.trim() !== '' && (
+                  <p className="mt-3 text-base text-olive-900 font-sans leading-[1.65]">
+                    {edu.details}
+                  </p>
+                )}
               </div>
             ))}
           </div>

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Download, Mail, Menu, X, Terminal } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
+import { useWindows } from '../context/WindowContext';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [time, setTime] = useState('');
+  const { closedWindows, restoreWindow } = useWindows();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,9 +51,14 @@ export const Navbar: React.FC = () => {
 
   const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    const id = href.replace('#', '');
+    if (closedWindows[id]) {
+      restoreWindow(id);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 

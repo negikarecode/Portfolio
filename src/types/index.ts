@@ -23,6 +23,7 @@ export interface Project {
   };
   screenshots?: ProjectScreenshot[];
   isShopifyStore?: boolean;
+  nextImprovement?: string;
 }
 
 export interface ExperienceItem {

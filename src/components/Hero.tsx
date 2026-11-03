@@ -5,14 +5,20 @@ import { RetroWindow } from './ui/RetroWindow';
 import { DesktopFolder } from './ui/DesktopFolder';
 import { ProfileAppIcon } from './ui/ProfileAppIcon';
 import { DockBar } from './ui/DockBar';
+import { useWindows } from '../context/WindowContext';
 
 export const Hero: React.FC = () => {
   const { personal } = portfolioData;
+  const { closedWindows, restoreWindow } = useWindows();
 
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+  const handleFolderClick = (id: string) => {
+    if (closedWindows[id]) {
+      restoreWindow(id);
+    } else {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -23,9 +29,9 @@ export const Hero: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6">
           {/* Left Desktop Folders */}
           <div className="flex lg:flex-col items-center justify-center gap-2 sm:gap-4 shrink-0 order-2 lg:order-1">
-            <ProfileAppIcon label="profile" onClick={() => scrollToSection('portfolio-window')} />
-            <DesktopFolder label="works" onClick={() => scrollToSection('works-window')} />
-            <DesktopFolder label="tools" onClick={() => scrollToSection('tools-window')} />
+            <ProfileAppIcon label="profile" onClick={() => handleFolderClick('portfolio-window')} />
+            <DesktopFolder label="works" onClick={() => handleFolderClick('works-window')} />
+            <DesktopFolder label="tools" onClick={() => handleFolderClick('tools-window')} />
           </div>
 
           {/* Center: Candidate Name in Serif Display with clamp() */}
@@ -45,11 +51,16 @@ export const Hero: React.FC = () => {
               </span>
             </div>
 
+            {/* Factual one line from site stack & projects */}
+            <p className="mt-2 text-xs sm:text-sm font-sans text-olive-900/90 max-w-lg mx-auto leading-relaxed">
+              Building full stack web applications with React and Django, and customizing Shopify storefronts.
+            </p>
+
             {/* First Viewport Primary CTAs */}
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
               <button
                 type="button"
-                onClick={() => scrollToSection('contact-window')}
+                onClick={() => handleFolderClick('contact-window')}
                 className="inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
               >
                 <Mail className="w-4 h-4" aria-hidden="true" />
@@ -70,8 +81,8 @@ export const Hero: React.FC = () => {
 
           {/* Right Desktop Folders */}
           <div className="flex lg:flex-col items-center justify-center gap-2 sm:gap-4 shrink-0 order-3">
-            <DesktopFolder label="experience" onClick={() => scrollToSection('experience-window')} />
-            <DesktopFolder label="education" onClick={() => scrollToSection('education-window')} />
+            <DesktopFolder label="experience" onClick={() => handleFolderClick('experience-window')} />
+            <DesktopFolder label="education" onClick={() => handleFolderClick('education-window')} />
             <DesktopFolder
               label="resume"
               href={personal.resumePdfUrl}
@@ -101,9 +112,12 @@ export const Hero: React.FC = () => {
                 className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-olive-900 bg-olive-100 overflow-hidden shadow-sm flex items-center justify-center relative"
               >
                 <img
-                  src="/profile.png"
+                  src="/profile.webp"
                   alt="Aryan Negi — Full Stack Developer"
+                  width={160}
+                  height={160}
                   loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-top"
                 />
               </div>
@@ -147,7 +161,7 @@ export const Hero: React.FC = () => {
               <div className="pt-3 flex flex-wrap items-center justify-center sm:justify-start gap-3">
                 <button
                   type="button"
-                  onClick={() => scrollToSection('contact-window')}
+                  onClick={() => handleFolderClick('contact-window')}
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 min-h-[44px] bg-olive-900 text-white font-mono text-xs sm:text-sm font-bold rounded-sm border-2 border-olive-900 hover:bg-copper transition-all duration-150 shadow-retro-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
                 >
                   <Mail className="w-4 h-4" aria-hidden="true" />

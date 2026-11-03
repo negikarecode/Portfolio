@@ -18,9 +18,9 @@ export const Footer: React.FC = () => {
           </span>
         </div>
 
-        {/* Center */}
-        <div className="font-serif italic text-sm text-olive-800">
-          "Meaningful code starts with intention."
+        {/* Center: Location & Role */}
+        <div className="font-mono text-xs text-olive-800">
+          New Delhi, India // Full Stack Developer
         </div>
 
         {/* Right back to top */}

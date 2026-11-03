@@ -31,7 +31,7 @@ export const Works: React.FC = () => {
             FEATURED WORKS
           </h2>
           <p className="font-serif italic text-base sm:text-lg text-olive-800 mt-1 leading-relaxed">
-            "Full stack and storefront projects, built end to end."
+            "Full stack web applications and customized Shopify storefronts."
           </p>
         </div>
 
@@ -149,7 +149,7 @@ export const Works: React.FC = () => {
                 )}
 
                 {/* Bullets: Implementation & Core Features */}
-                <div className="space-y-3 mb-6">
+                <div className="space-y-3 mb-5">
                   <h4 className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-olive-800">
                     Implementation & Core Features:
                   </h4>
@@ -162,6 +162,16 @@ export const Works: React.FC = () => {
                     ))}
                   </ul>
                 </div>
+
+                {/* Optional Next Improvement Field (Rendered strictly when filled by user) */}
+                {project.nextImprovement && project.nextImprovement.trim() !== '' && (
+                  <div className="mb-5 p-3 rounded-md bg-olive-50/80 border border-olive-900/15 flex items-start gap-2.5 text-xs sm:text-sm font-sans text-olive-900">
+                    <span className="font-mono font-bold text-copper uppercase tracking-wider text-xs shrink-0 mt-0.5">
+                      Next improvement:
+                    </span>
+                    <span className="leading-relaxed">{project.nextImprovement}</span>
+                  </div>
+                )}
 
                 {/* Tech Stack Pills & Action Links */}
                 <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-olive-900/10">
