@@ -114,8 +114,8 @@ export const Works: React.FC = () => {
                 </div>
 
                 {/* Tech Stack Pills & Action Links */}
-                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-olive-900/10">
-                  <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-olive-900/10">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {project.techStack.map((tech) => (
                       <span
                         key={tech}

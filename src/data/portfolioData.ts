@@ -20,9 +20,9 @@ export const portfolioData: PortfolioData = {
       headline: "I'm a full stack developer who gets a little too excited about making complicated things feel simple.",
       short: "I care deeply about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier.",
       paragraphs: [
-        "Based in New Delhi, India, I am pursuing a Bachelor of Computer Science at Delhi University. My approach combines pragmatic engineering with thoughtful interaction design — bridging clean front-end interfaces with reliable backend services.",
-        "From customizing production Shopify storefronts using Liquid, HTML, CSS, and modern JavaScript to building full-stack platforms with React, Python, and Django, I focus on turning technical requirements into fast, responsive digital experiences.",
-        "Certified as an IBM Full Stack Software Developer, I've contributed to client deliverables through software internships at Open Limits and Klynt Solutions, prioritizing performance, semantic accessibility, and modular component architecture."
+        "Based in New Delhi, I'm a Computer Science student at Delhi University building full stack apps with React and Django and customizing Shopify storefronts.",
+        "From developing Shopify storefronts using Liquid, HTML, CSS, and JavaScript to building web apps with React, Python, and Django, I focus on clean code and reliable user experiences.",
+        "Certified as an IBM Full Stack Software Developer, I've worked across internships at Open Limits and Klynt Solutions focusing on responsive design, performance, and component structure."
       ],
     },
     resumePdfUrl: "/Aryan_Negi_Resume.pdf",
@@ -69,14 +69,14 @@ export const portfolioData: PortfolioData = {
       subtitle: "Diagnostic & Mock Test Platform for CUET UG Aspirants",
       role: "Full Stack Developer",
       period: "2025",
-      goal: "Build a comprehensive preparation platform offering full-length mock tests, chapter-wise practice tests, previous year question archives, and a 150-question diagnostic cycle to identify learning gaps.",
+      goal: "Build a preparation platform offering full-length mock tests, chapter-wise practice tests, previous year question archives, and a 150-question diagnostic cycle to identify learning gaps.",
       solution: "Developed the testing engine and performance analytics using React, Django REST framework, and MySQL to deliver structured mock exams and improvement insights.",
       bullets: [
         "Developed the full-stack test engine supporting chapter-wise practice modules, timed mock examinations, and indexed previous year questions (PYQs).",
         "Integrated a 150-question diagnostic cycle system to identify subject weaknesses and generate personalized improvement insights.",
         "Constructed a relational MySQL database schema integrated with Django REST API endpoints for secure, low-latency question retrieval and review."
       ],
-      techStack: ["React", "Python", "Django", "MySQL", "Tailwind CSS", "RESTful APIs", "Performance Analytics"],
+      techStack: ["React", "Python", "Django", "MySQL", "Tailwind CSS", "REST APIs"],
       links: {
         // demo: "https://...",
         // code: "https://github.com/..."

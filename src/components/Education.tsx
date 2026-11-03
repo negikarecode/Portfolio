@@ -19,7 +19,7 @@ export const Education: React.FC = () => {
             EDUCATION & CREDENTIALS
           </h2>
           <p className="font-serif italic text-base sm:text-lg text-olive-800 mt-1 leading-relaxed">
-            "Formal foundations in computer science and validated software engineering certifications."
+            "Computer science foundations, plus an IBM full stack certification."
           </p>
         </div>
 

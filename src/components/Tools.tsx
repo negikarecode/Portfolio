@@ -61,7 +61,7 @@ export const Tools: React.FC = () => {
 
         {/* Footnote bar (Clean wording: 11 tools, used across my projects) */}
         <div className="mt-8 pt-5 border-t-2 border-dashed border-olive-900/15 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm font-mono text-olive-800">
-          <span>Active Modules: 11 tools</span>
+          <span>11 tools</span>
           <span className="font-bold text-copper">Used across my projects</span>
         </div>
       </RetroWindow>
