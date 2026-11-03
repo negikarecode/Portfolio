@@ -1,3 +1,11 @@
+export interface ProjectScreenshot {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -13,7 +21,7 @@ export interface Project {
     demo?: string;
     code?: string;
   };
-  screenshots?: string[];
+  screenshots?: ProjectScreenshot[];
   isShopifyStore?: boolean;
 }
 
@@ -42,6 +50,7 @@ export interface CertificationItem {
   issuer: string;
   year?: string;
   credentialUrl?: string;
+  certificatePdfUrl?: string;
   topicsCovered: string[];
 }
 

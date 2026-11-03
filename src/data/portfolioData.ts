@@ -81,7 +81,22 @@ export const portfolioData: PortfolioData = {
         // demo: "https://...",
         // code: "https://github.com/..."
       },
-      screenshots: [],
+      screenshots: [
+        {
+          src: "/projects/cuetmate-1.png",
+          alt: "CUETPrep computer-based test simulator interface with physics question, response options, question palette, and countdown timer",
+          caption: "NTA-style computer-based test simulator with question palette and countdown timer",
+          width: 1638,
+          height: 935,
+        },
+        {
+          src: "/projects/cuetmate-2.png",
+          alt: "CUET AI-Prep student dashboard displaying diagnostic test prompt, performance analytics curve, and subject weakness breakdown",
+          caption: "Student diagnostic dashboard with performance curve and subject accuracy breakdown",
+          width: 1636,
+          height: 930,
+        },
+      ],
     },
     {
       id: "urban-essentials",
@@ -103,7 +118,22 @@ export const portfolioData: PortfolioData = {
         // demo: "https://...",
         // code: "https://github.com/..."
       },
-      screenshots: [],
+      screenshots: [
+        {
+          src: "/projects/urban-essentials-1.webp",
+          alt: "Urban Essentials product detail page featuring 2-tier stainless steel tiffin box with live color variant options, price, and add to bag button",
+          caption: "Product detail page with instant color variant selector and checkout buttons",
+          width: 1600,
+          height: 910,
+        },
+        {
+          src: "/projects/urban-essentials-2.webp",
+          alt: "Urban Essentials storefront homepage featuring promotional announcement bar, routine collection hero banner, and product feature badges",
+          caption: "Storefront homepage with hero collection banner and product feature badges",
+          width: 1600,
+          height: 912,
+        },
+      ],
     },
   ],
 
@@ -158,6 +188,7 @@ export const portfolioData: PortfolioData = {
       title: "IBM Full Stack Software Developer",
       issuer: "IBM",
       year: "2025",
+      certificatePdfUrl: "/certs/ibm-full-stack-certificate.pdf",
       topicsCovered: [
         "Front-End Development with React",
         "Back-End Services & Architecture",

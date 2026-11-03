@@ -1,11 +1,22 @@
-import React from 'react';
-import { ExternalLink, CheckCircle2, ArrowUpRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { ExternalLink, CheckCircle2, ArrowUpRight, Maximize2 } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 import { RetroWindow } from './ui/RetroWindow';
 import { GithubIcon } from './ui/Icons';
+import { ImageLightbox } from './ui/ImageLightbox';
 
 export const Works: React.FC = () => {
   const { projects } = portfolioData;
+
+  const [activeLightbox, setActiveLightbox] = useState<{
+    projectId: string;
+    index: number;
+    triggerId?: string;
+  } | null>(null);
+
+  const activeProject = activeLightbox
+    ? projects.find((p) => p.id === activeLightbox.projectId)
+    : null;
 
   return (
     <section id="works" className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
@@ -60,28 +71,6 @@ export const Works: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Optional Screenshot Retro Frame: Rendered only if images exist */}
-                {hasScreenshots && (
-                  <div className="mb-6 rounded-md border-2 border-olive-900 overflow-hidden shadow-retro-sm bg-olive-50">
-                    <div className="bg-olive-800 text-white px-3 py-1.5 flex items-center justify-between text-xs font-mono border-b border-olive-900">
-                      <span className="font-bold truncate">preview:\{project.id}.png</span>
-                      <span className="text-[10px] text-peach">2-UP DISPLAY</span>
-                    </div>
-                    <div className="p-3 grid grid-cols-1 sm:grid-cols-2 gap-3 bg-olive-100/40">
-                      {project.screenshots?.map((src, sIdx) => (
-                        <div key={sIdx} className="rounded border border-olive-900/30 overflow-hidden bg-white">
-                          <img
-                            src={src}
-                            alt={`${project.title} screenshot ${sIdx + 1}`}
-                            loading="lazy"
-                            className="w-full h-auto object-cover"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
                 {/* Goal & Solution block */}
                 <div className="bg-olive-50/70 p-4 sm:p-5 rounded-md border border-olive-900/15 space-y-3 text-sm sm:text-base font-sans mb-5 leading-relaxed">
                   <div>
@@ -98,7 +87,67 @@ export const Works: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 3 Strongest Bullets (No unverified claims, space-y-3, line-height 1.65, font-size 16px) */}
+                {/* Screenshot Retro Window Frame (Placed strictly between Goal/Solution block and Bullets) */}
+                {hasScreenshots && (
+                  <div className="mb-6 rounded-md border-2 border-olive-900 overflow-hidden shadow-retro-sm bg-olive-50">
+                    <div className="bg-olive-800 text-cream px-3 py-1.5 flex items-center justify-between text-xs font-mono border-b border-olive-900 select-none gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="w-2 h-2 rounded-full bg-peach shrink-0" />
+                        <span className="font-bold tracking-wide text-cream truncate">
+                          preview:\{project.id}\screens
+                        </span>
+                      </div>
+                      <span className="text-[11px] text-peach font-semibold uppercase shrink-0">
+                        [{project.screenshots?.length} screens<span className="hidden sm:inline"> • click to expand</span>]
+                      </span>
+                    </div>
+
+                    <div className="p-3 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-3.5 bg-olive-100/40">
+                      {project.screenshots?.map((screenshot, sIdx) => {
+                        const btnId = `screenshot-btn-${project.id}-${sIdx}`;
+                        return (
+                          <button
+                            key={sIdx}
+                            id={btnId}
+                            type="button"
+                            onClick={() =>
+                              setActiveLightbox({
+                                projectId: project.id,
+                                index: sIdx,
+                                triggerId: btnId,
+                              })
+                            }
+                            aria-label={`Enlarge screenshot: ${screenshot.caption}`}
+                            className="group text-left rounded border-2 border-olive-900/30 overflow-hidden bg-white hover:border-olive-900 focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none transition-all duration-150 shadow-retro-xs hover:shadow-retro-sm cursor-zoom-in"
+                          >
+                            <div className="relative aspect-[16/10] overflow-hidden bg-olive-950/5">
+                              <img
+                                src={screenshot.src}
+                                alt={screenshot.alt}
+                                width={screenshot.width}
+                                height={screenshot.height}
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-full object-cover object-top transition-transform duration-200 group-hover:scale-[1.02]"
+                              />
+                              <span className="absolute bottom-2 right-2 px-2 py-0.5 bg-olive-950/85 text-cream text-[10px] font-mono rounded-xs border border-olive-700/60 opacity-90 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                                <Maximize2 className="w-3 h-3 text-peach" aria-hidden="true" />
+                                <span>Expand</span>
+                              </span>
+                            </div>
+                            <div className="p-2.5 bg-olive-50/70 border-t border-olive-900/20">
+                              <p className="font-mono text-xs text-olive-900 leading-snug">
+                                {screenshot.caption}
+                              </p>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Bullets: Implementation & Core Features */}
                 <div className="space-y-3 mb-6">
                   <h4 className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-olive-800">
                     Implementation & Core Features:
@@ -161,6 +210,30 @@ export const Works: React.FC = () => {
           })}
         </div>
       </RetroWindow>
+
+      {/* Accessible Lightbox Modal */}
+      {activeProject && activeProject.screenshots && (
+        <ImageLightbox
+          isOpen={Boolean(activeLightbox)}
+          onClose={() => {
+            const triggerId = activeLightbox?.triggerId;
+            setActiveLightbox(null);
+            if (triggerId) {
+              setTimeout(() => {
+                document.getElementById(triggerId)?.focus();
+              }, 40);
+            }
+          }}
+          images={activeProject.screenshots}
+          currentIndex={activeLightbox?.index ?? 0}
+          onNavigate={(newIndex) => {
+            if (activeLightbox) {
+              setActiveLightbox({ ...activeLightbox, index: newIndex });
+            }
+          }}
+          projectTitle={activeProject.title}
+        />
+      )}
     </section>
   );
 };

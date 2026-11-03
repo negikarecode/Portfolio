@@ -7,6 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        cream: {
+          DEFAULT: '#F4EEDB',
+          light: '#FBF8F1',
+        },
         graph: {
           bg: '#F4EEDB',
           line: 'rgba(88, 106, 76, 0.14)',
