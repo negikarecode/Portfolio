@@ -21,15 +21,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenLightbox }) =>
   return (
     <div
       ref={ref}
-      className={`bg-white border-2 border-olive-900 rounded-lg p-5 sm:p-7 shadow-retro-sm transition-all duration-200 hover:shadow-retro fade-rise-item flex flex-col justify-between h-full ${
+      className={`bg-white border-2 border-olive-900 rounded-lg p-5 sm:p-6 shadow-retro-sm transition-all duration-200 hover:shadow-retro fade-rise-item flex flex-col justify-between h-full ${
         isInView ? 'is-visible' : ''
       }`}
     >
       <div className="space-y-4">
-        {/* Header Tag & Role */}
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b-2 border-olive-900/15">
+        {/* Header Tag, Role, Period */}
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b-2 border-olive-900/15">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-xs font-bold px-2.5 py-1 bg-peach text-olive-950 rounded-xs border border-olive-900/20 uppercase tracking-wider">
+            <span className="font-mono text-xs font-bold px-2.5 py-0.5 bg-peach text-olive-950 rounded-xs border border-olive-900/20 uppercase tracking-wider">
               {project.tag}
             </span>
             <span className="font-mono text-xs sm:text-sm text-olive-800">
@@ -46,43 +46,27 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenLightbox }) =>
           <h3 className="font-serif text-2xl sm:text-3xl font-bold text-copper leading-tight tracking-normal">
             {project.title}
           </h3>
-          <p className="font-sans text-base sm:text-lg font-medium text-olive-900 mt-1 leading-snug">
+          <p className="font-sans text-xs sm:text-sm text-olive-800 mt-1 leading-relaxed">
             {project.subtitle}
           </p>
-        </div>
-
-        {/* Goal & Solution block */}
-        <div className="bg-olive-50/70 p-4 rounded-md border border-olive-900/15 space-y-2.5 text-sm sm:text-base font-sans leading-relaxed">
-          <div>
-            <span className="font-mono font-bold text-rose-900 uppercase tracking-wider text-xs block mb-0.5">
-              Goal:
-            </span>
-            <p className="text-olive-900">{project.goal}</p>
-          </div>
-          <div className="pt-2 border-t border-olive-900/10">
-            <span className="font-mono font-bold text-emerald-900 uppercase tracking-wider text-xs block mb-0.5">
-              Solution:
-            </span>
-            <p className="text-olive-900">{project.solution}</p>
-          </div>
         </div>
 
         {/* Screenshot Retro Window Frame */}
         {hasScreenshots && (
           <div className="rounded-md border-2 border-olive-900 overflow-hidden shadow-retro-sm bg-olive-50">
-            <div className="bg-olive-800 text-[#F4EEDB] px-3 py-1.5 flex items-center justify-between text-xs font-mono border-b border-olive-900 select-none gap-2">
-              <div className="flex items-center gap-2 min-w-0">
+            <div className="bg-olive-800 text-[#F4EEDB] px-3 py-1 flex items-center justify-between text-[11px] font-mono border-b border-olive-900 select-none gap-2">
+              <div className="flex items-center gap-1.5 min-w-0">
                 <span className="w-2 h-2 rounded-full bg-peach shrink-0" />
                 <span className="font-bold tracking-wide text-[#F4EEDB] truncate">
                   preview:\{project.id}\screens
                 </span>
               </div>
-              <span className="text-[11px] text-peach font-semibold uppercase shrink-0">
-                [{project.screenshots?.length} screens<span className="hidden sm:inline"> • expand</span>]
+              <span className="text-[10px] text-peach font-semibold uppercase shrink-0">
+                [{project.screenshots?.length} screens • click to expand]
               </span>
             </div>
 
-            <div className="p-3 grid grid-cols-1 sm:grid-cols-2 gap-3 bg-olive-100/40">
+            <div className="p-2.5 grid grid-cols-2 gap-2.5 bg-olive-100/40">
               {project.screenshots?.map((screenshot, sIdx) => {
                 const btnId = `screenshot-btn-${project.id}-${sIdx}`;
                 return (
@@ -92,7 +76,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenLightbox }) =>
                     type="button"
                     onClick={() => onOpenLightbox(project.id, sIdx, btnId)}
                     aria-label={`Enlarge screenshot: ${screenshot.caption}`}
-                    className="group relative text-left rounded border-2 border-olive-900/30 overflow-hidden bg-white hover:border-olive-900 focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none transition-all duration-150 shadow-retro-xs hover:shadow-retro-sm cursor-zoom-in"
+                    className="group relative text-left rounded border border-olive-900/30 overflow-hidden bg-white hover:border-olive-900 focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none transition-all duration-150 shadow-retro-xs hover:shadow-retro-sm cursor-zoom-in"
                   >
                     <div className={`relative aspect-[16/10] overflow-hidden bg-olive-950/5 ${isInView ? 'screenshot-loading-flicker' : ''}`}>
                       <img
@@ -102,18 +86,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenLightbox }) =>
                         height={screenshot.height}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover object-top transition-transform duration-300 ease-out group-hover:scale-[1.03] group-hover:rotate-[0.5deg]"
+                        className="w-full h-full object-cover object-top transition-transform duration-300 ease-out group-hover:scale-[1.03]"
                       />
-                      {/* Expand badge */}
-                      <span className="absolute top-2 right-2 px-2 py-0.5 bg-olive-950/75 backdrop-blur-xs text-[#F4EEDB] text-[10px] font-mono rounded-xs border border-olive-700/60 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-150 flex items-center gap-1 shadow-xs pointer-events-none">
-                        <Maximize2 className="w-3 h-3 text-peach" aria-hidden="true" />
+                      <span className="absolute top-1.5 right-1.5 px-1.5 py-0.5 bg-olive-950/75 backdrop-blur-xs text-[#F4EEDB] text-[9px] font-mono rounded-xs border border-olive-700/60 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-150 flex items-center gap-1 shadow-xs pointer-events-none">
+                        <Maximize2 className="w-2.5 h-2.5 text-peach" aria-hidden="true" />
                         <span>Expand</span>
                       </span>
-                    </div>
-                    <div className="p-2 bg-olive-50/70 border-t border-olive-900/20">
-                      <p className="font-mono text-xs text-olive-900 leading-snug line-clamp-2">
-                        {screenshot.caption}
-                      </p>
                     </div>
                   </button>
                 );
@@ -123,43 +101,28 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenLightbox }) =>
         )}
 
         {/* Bullets: Implementation & Core Features */}
-        <div className="space-y-2.5">
-          <h4 className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-olive-800">
-            Implementation & Core Features:
-          </h4>
-          <ul className="space-y-2.5">
-            {project.bullets.map((bullet, bIdx) => (
-              <li key={bIdx} className="flex items-start gap-2.5 text-sm sm:text-base text-olive-900 font-sans leading-relaxed">
-                <div
-                  className={isInView ? 'check-icon-pop' : 'opacity-0'}
-                  style={{ animationDelay: `${bIdx * 50}ms` }}
-                >
-                  <CheckCircle2 className="w-5 h-5 text-emerald-700 mt-0.5 shrink-0" aria-hidden="true" />
-                </div>
-                <span>{bullet}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Optional Next Improvement Field */}
-        {project.nextImprovement && project.nextImprovement.trim() !== '' && (
-          <div className="p-3 rounded-md bg-olive-50/80 border border-olive-900/15 flex items-start gap-2.5 text-xs sm:text-sm font-sans text-olive-900">
-            <span className="font-mono font-bold text-copper uppercase tracking-wider text-xs shrink-0 mt-0.5">
-              Next improvement:
-            </span>
-            <span className="leading-relaxed">{project.nextImprovement}</span>
-          </div>
-        )}
+        <ul className="space-y-2 pt-1">
+          {project.bullets.map((bullet, bIdx) => (
+            <li key={bIdx} className="flex items-start gap-2 text-xs sm:text-sm text-olive-900 font-sans leading-relaxed">
+              <div
+                className={isInView ? 'check-icon-pop' : 'opacity-0'}
+                style={{ animationDelay: `${bIdx * 50}ms` }}
+              >
+                <CheckCircle2 className="w-4 h-4 text-emerald-700 mt-0.5 shrink-0" aria-hidden="true" />
+              </div>
+              <span>{bullet}</span>
+            </li>
+          ))}
+        </ul>
       </div>
 
       {/* Tech Stack Pills & Action Links */}
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-olive-900/10">
-        <div className="flex flex-wrap gap-1.5 sm:gap-2">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 pt-3.5 border-t border-olive-900/10">
+        <div className="flex flex-wrap gap-1.5">
           {project.techStack.map((tech, tIdx) => (
             <span
               key={tech}
-              className={`font-mono text-xs px-2.5 py-1 bg-olive-100 text-olive-900 rounded-xs border border-olive-900/20 font-medium transition-all duration-300 ${
+              className={`font-mono text-[11px] sm:text-xs px-2 py-0.5 bg-olive-100 text-olive-900 rounded-xs border border-olive-900/20 font-medium transition-all duration-300 ${
                 isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
               }`}
               style={{ transitionDelay: `${tIdx * 40}ms` }}
@@ -177,7 +140,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenLightbox }) =>
                 href={project.links?.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="retro-btn inline-flex items-center gap-1.5 px-4 py-2 min-h-[44px] bg-olive-900 text-white font-mono text-xs font-bold rounded-sm border-2 border-olive-900 hover:bg-copper shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+                className="retro-btn inline-flex items-center gap-1.5 px-3.5 py-1.5 min-h-[38px] bg-olive-900 text-white font-mono text-xs font-bold rounded-sm border-2 border-olive-900 hover:bg-copper shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
               >
                 <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
                 <span>{project.isShopifyStore ? 'Store link' : 'Live Demo'}</span>
@@ -190,7 +153,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenLightbox }) =>
                 href={project.links?.code}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="retro-btn inline-flex items-center gap-1.5 px-4 py-2 min-h-[44px] bg-white text-olive-900 font-mono text-xs font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
+                className="retro-btn inline-flex items-center gap-1.5 px-3.5 py-1.5 min-h-[38px] bg-white text-olive-900 font-mono text-xs font-bold rounded-sm border-2 border-olive-900 hover:bg-peach-light shadow-retro-sm focus-visible:ring-2 focus-visible:ring-olive-900 focus-visible:outline-none"
               >
                 <GithubIcon className="w-3.5 h-3.5" />
                 <span>Code</span>
@@ -217,7 +180,7 @@ export const Works: React.FC = () => {
     : null;
 
   return (
-    <section id="works" className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <section id="works" className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-[1360px] mx-auto">
       <RetroWindow
         id="works-window"
         title="C:\ARYAN\works"

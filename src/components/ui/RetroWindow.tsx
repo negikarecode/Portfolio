@@ -147,7 +147,7 @@ export const RetroWindow: React.FC<RetroWindowProps> = ({
         className={`window-body-grid ${isMinimized ? 'is-minimized' : ''}`}
       >
         <div className="window-body-inner">
-          <div className="p-6 sm:p-8 lg:p-10">
+          <div className="p-5 sm:p-7 lg:p-8">
             {children}
           </div>
         </div>

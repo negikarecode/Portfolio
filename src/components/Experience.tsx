@@ -16,10 +16,10 @@ const ExperienceCard: React.FC<{ exp: ExperienceItem; index: number }> = ({ exp,
         isEven ? 'fade-rise-left' : 'fade-rise-right'
       } ${isInView ? 'is-visible' : ''}`}
     >
-      <div className="space-y-4">
-        <div className="pb-3 border-b border-olive-900/15">
+      <div className="space-y-3.5">
+        <div className="pb-2.5 border-b border-olive-900/15">
           <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2">
-            <span className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs px-2.5 py-1 bg-olive-900 text-white rounded-xs font-bold uppercase tracking-wide">
+            <span className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs px-2.5 py-0.5 bg-olive-900 text-white rounded-xs font-bold uppercase tracking-wide">
               <Briefcase className="w-3 h-3" aria-hidden="true" />
               <span>{exp.role}</span>
             </span>
@@ -44,31 +44,25 @@ const ExperienceCard: React.FC<{ exp: ExperienceItem; index: number }> = ({ exp,
           </div>
         </div>
 
-        {/* Description & Bullets */}
-        <div className="space-y-3">
-          <p className="text-xs sm:text-sm font-sans italic text-olive-900 leading-relaxed">
-            {exp.description}
-          </p>
-
-          <ul className="space-y-2.5 pt-1">
-            {exp.bullets.map((bullet, bIdx) => (
-              <li
-                key={bIdx}
-                className={`flex items-start gap-2 text-xs sm:text-sm text-olive-900 font-sans leading-relaxed transition-all duration-300 ${
-                  isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
-                }`}
-                style={{ transitionDelay: `${bIdx * 40}ms` }}
-              >
-                <ChevronRight className="w-4 h-4 text-copper mt-0.5 shrink-0" aria-hidden="true" />
-                <span>{bullet}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* Bullets: Key Points Only */}
+        <ul className="space-y-2 pt-1">
+          {exp.bullets.map((bullet, bIdx) => (
+            <li
+              key={bIdx}
+              className={`flex items-start gap-2 text-xs sm:text-sm text-olive-900 font-sans leading-relaxed transition-all duration-300 ${
+                isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
+              }`}
+              style={{ transitionDelay: `${bIdx * 40}ms` }}
+            >
+              <ChevronRight className="w-4 h-4 text-copper mt-0.5 shrink-0" aria-hidden="true" />
+              <span>{bullet}</span>
+            </li>
+          ))}
+        </ul>
       </div>
 
       {/* Tech Stack Pills */}
-      <div className="mt-5 pt-3.5 border-t border-dashed border-olive-900/15 flex flex-wrap gap-1.5">
+      <div className="mt-5 pt-3 border-t border-dashed border-olive-900/15 flex flex-wrap gap-1.5">
         {exp.techStack.map((tech) => (
           <span
             key={tech}
@@ -86,7 +80,7 @@ export const Experience: React.FC = () => {
   const { experiences } = portfolioData;
 
   return (
-    <section id="experience" className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <section id="experience" className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-[1360px] mx-auto">
       <RetroWindow
         id="experience-window"
         title="C:\ARYAN\experience"

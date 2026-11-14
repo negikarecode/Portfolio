@@ -37,14 +37,13 @@ export const portfolioData: PortfolioData = {
       period: "Nov 2026 – Present",
       duration: "3 Months",
       location: "Remote",
-      description: "Leading international B2B lead generation, prospect research, and outreach initiatives to expand Starblish's client acquisition pipeline across e-commerce, D2C, and retail verticals.",
+      description: "International B2B lead generation and client acquisition across e-commerce, D2C, and retail verticals.",
       bullets: [
-        "Targeting and researching international prospects across e-commerce brands, D2C retailers, and manufacturers, identifying key decision-makers including Founders and C-level executives.",
-        "Executing strategic outreach campaigns via LinkedIn and professional email channels, personalizing communications to build trust and generate genuine commercial interest.",
-        "Qualifying prospective clients against business requirements and service offerings, coordinating and scheduling high-intent discovery calls and meeting appointments.",
-        "Managing structured lead databases and daily reporting workflows, tracking outreach metrics, pipeline conversion rates, and client engagement analytics."
+        "Researched international B2B prospects across e-commerce and retail, targeting Founders and C-suite decision-makers.",
+        "Executed targeted outreach campaigns via LinkedIn and email to build active client acquisition pipelines.",
+        "Qualified prospects against service requirements, scheduled discovery meetings, and managed CRM tracking."
       ],
-      techStack: ["B2B Lead Generation", "Cold Outreach", "Market Research", "LinkedIn Outreach", "Prospect Qualification", "CRM & Pipeline Tracking"],
+      techStack: ["B2B Lead Generation", "Cold Outreach", "LinkedIn Outreach", "CRM Tracking"],
       badgeColor: "sky",
     },
     {
@@ -53,13 +52,13 @@ export const portfolioData: PortfolioData = {
       period: "2025–26",
       duration: "6 Months",
       location: "New Delhi / Remote",
-      description: "Built and customized Shopify e-commerce stores, developed responsive theme components, and resolved front-end issues to improve store performance.",
+      description: "Customized Shopify e-commerce storefronts, built modular theme components, and optimized store performance.",
       bullets: [
-        "Built and customized Shopify storefronts using Liquid, HTML, CSS, and JavaScript, creating modular theme components and fluid product pages.",
-        "Identified and resolved cross-browser rendering bugs and responsive layout inconsistencies across mobile, tablet, and desktop viewports.",
-        "Optimized asset loading sequences and theme scripts to improve store page load speeds and streamline the mobile checkout experience."
+        "Built modular Shopify theme sections using Liquid, HTML5, CSS3, and JavaScript for flexible merchandising.",
+        "Resolved cross-browser layout inconsistencies and responsive bugs across mobile, tablet, and desktop viewports.",
+        "Optimized theme asset loading and scripts to increase page load speeds and streamline the mobile checkout."
       ],
-      techStack: ["Shopify Liquid", "HTML5", "CSS3", "JavaScript", "Responsive Design", "Theme Optimization"],
+      techStack: ["Shopify Liquid", "JavaScript", "HTML5 & CSS3", "Theme Optimization"],
       badgeColor: "mint",
     },
     {
@@ -68,13 +67,13 @@ export const portfolioData: PortfolioData = {
       period: "2025",
       duration: "3 Months",
       location: "New Delhi / Remote",
-      description: "Developed static and interactive client web pages focusing on layout integrity, mobile responsiveness, and vanilla DOM manipulation.",
+      description: "Developed responsive client web interfaces focusing on layout fidelity and vanilla DOM interactivity.",
       bullets: [
-        "Developed responsive web interfaces from design mockups utilizing semantic HTML5, modern CSS layouts (Flexbox/Grid), and vanilla JavaScript.",
-        "Implemented DOM manipulation scripts for interactive UI components, dynamic modals, and responsive navigation menus.",
-        "Conducted cross-device responsive testing to maintain visual layout integrity and clean rendering across targeted screen sizes."
+        "Built responsive web interfaces from design mockups utilizing semantic HTML5, CSS Grid/Flexbox, and JavaScript.",
+        "Implemented DOM manipulation scripts for dynamic modals, interactive widgets, and responsive navigation menus.",
+        "Conducted cross-device responsive testing to ensure layout integrity and smooth rendering across targeted devices."
       ],
-      techStack: ["HTML5", "CSS3", "JavaScript", "DOM Manipulation", "Responsive Layouts"],
+      techStack: ["HTML5 & CSS3", "JavaScript", "DOM Manipulation", "Responsive Layouts"],
       badgeColor: "yellow",
     },
   ],
