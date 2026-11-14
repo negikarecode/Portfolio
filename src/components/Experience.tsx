@@ -98,7 +98,7 @@ export const Experience: React.FC = () => {
             WORK EXPERIENCE
           </h2>
           <p className="font-serif italic text-base sm:text-lg text-olive-800 mt-1 leading-relaxed">
-            "Front-end and Shopify development across two internships."
+            "Front-end development, Shopify engineering, and business development across industry internships."
           </p>
         </div>
 

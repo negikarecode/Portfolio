@@ -24,13 +24,29 @@ export const portfolioData: PortfolioData = {
       paragraphs: [
         "Based in New Delhi, I'm a Computer Science student at Delhi University building full stack apps with React and Django and customizing Shopify storefronts.",
         "From developing Shopify storefronts using Liquid, HTML, CSS, and JavaScript to building web apps with React, Python, and Django, I focus on clean code and reliable user experiences.",
-        "Certified as an IBM Full Stack Software Developer, I've worked across internships at Open Limits and Klynt Solutions focusing on responsive design, performance, and component structure."
+        "Certified as an IBM Full Stack Software Developer, I've gained hands-on experience through internships at Starblish, Open Limits, and Klynt Solutions—spanning international B2B client acquisition, Shopify storefront engineering, and responsive web design."
       ],
     },
     resumePdfUrl: "/Aryan_Negi_Resume.pdf",
   },
 
   experiences: [
+    {
+      company: "Starblish",
+      role: "Business Development & Lead Gen (Intern)",
+      period: "Nov 2026 – Present",
+      duration: "3 Months",
+      location: "Remote",
+      description: "Leading international B2B lead generation, prospect research, and outreach initiatives to expand Starblish's client acquisition pipeline across e-commerce, D2C, and retail verticals.",
+      bullets: [
+        "Targeting and researching international prospects across e-commerce brands, D2C retailers, and manufacturers, identifying key decision-makers including Founders and C-level executives.",
+        "Executing strategic outreach campaigns via LinkedIn and professional email channels, personalizing communications to build trust and generate genuine commercial interest.",
+        "Qualifying prospective clients against business requirements and service offerings, coordinating and scheduling high-intent discovery calls and meeting appointments.",
+        "Managing structured lead databases and daily reporting workflows, tracking outreach metrics, pipeline conversion rates, and client engagement analytics."
+      ],
+      techStack: ["B2B Lead Generation", "Cold Outreach", "Market Research", "LinkedIn Outreach", "Prospect Qualification", "CRM & Pipeline Tracking"],
+      badgeColor: "sky",
+    },
     {
       company: "Open Limits",
       role: "Web Developer (Intern)",
@@ -162,6 +178,15 @@ export const portfolioData: PortfolioData = {
         { name: "UI Architecture", tagColor: "yellow" },
         { name: "Performance Optimization", tagColor: "mint" },
         { name: "Cross-Browser Testing", tagColor: "sky" },
+      ],
+    },
+    {
+      title: "Business & Growth",
+      skills: [
+        { name: "B2B Lead Generation", tagColor: "mint" },
+        { name: "Market & Prospect Research", tagColor: "sky" },
+        { name: "Outreach & Client Acquisition", tagColor: "yellow" },
+        { name: "Pipeline & CRM Tracking", tagColor: "pink" },
       ],
     },
   ],
