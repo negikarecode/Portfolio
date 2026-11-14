@@ -12,67 +12,67 @@ const ExperienceCard: React.FC<{ exp: ExperienceItem; index: number }> = ({ exp,
   return (
     <div
       ref={ref}
-      className={`bg-white border-2 border-olive-900 rounded-lg p-6 sm:p-8 shadow-retro-sm transition-all duration-200 hover:shadow-retro ${
+      className={`bg-white border-2 border-olive-900 rounded-lg p-5 sm:p-6 shadow-retro-sm transition-all duration-200 hover:shadow-retro flex flex-col justify-between h-full ${
         isEven ? 'fade-rise-left' : 'fade-rise-right'
       } ${isInView ? 'is-visible' : ''}`}
     >
-      <div className="flex flex-wrap items-start justify-between gap-3 pb-3 mb-4 border-b border-olive-900/15">
-        <div>
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className="inline-flex items-center gap-1 font-mono text-xs px-2.5 py-1 bg-olive-900 text-white rounded-xs font-bold uppercase tracking-wide">
+      <div className="space-y-4">
+        <div className="pb-3 border-b border-olive-900/15">
+          <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2">
+            <span className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs px-2.5 py-1 bg-olive-900 text-white rounded-xs font-bold uppercase tracking-wide">
               <Briefcase className="w-3 h-3" aria-hidden="true" />
               <span>{exp.role}</span>
             </span>
-            <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-xs bg-peach text-olive-950 border border-olive-900/20">
+            <span className="text-[11px] sm:text-xs font-mono font-semibold px-2 py-0.5 rounded-xs bg-peach text-olive-950 border border-olive-900/20">
               {exp.duration}
             </span>
           </div>
 
-          <h3 className="text-2xl sm:text-3xl font-serif font-bold text-copper tracking-normal">
+          <h3 className="text-xl sm:text-2xl font-serif font-bold text-copper tracking-normal">
             {exp.company}
           </h3>
+
+          <div className="flex flex-wrap items-center justify-between gap-1 text-xs font-mono text-olive-800 mt-2">
+            <span className="inline-flex items-center gap-1 bg-olive-100 px-2 py-0.5 rounded-xs border border-olive-900/15 font-medium">
+              <Calendar className="w-3 h-3 text-copper" aria-hidden="true" />
+              <span>{exp.period}</span>
+            </span>
+            <span className="inline-flex items-center gap-1 text-olive-700">
+              <MapPin className="w-3 h-3" aria-hidden="true" />
+              <span>{exp.location}</span>
+            </span>
+          </div>
         </div>
 
-        <div className="flex flex-col sm:items-end text-xs sm:text-sm font-mono text-olive-800">
-          <span className="inline-flex items-center gap-1.5 bg-olive-100 px-2.5 py-1 rounded-xs border border-olive-900/15 font-medium">
-            <Calendar className="w-3.5 h-3.5 text-copper" aria-hidden="true" />
-            <span>{exp.period}</span>
-          </span>
-          <span className="inline-flex items-center gap-1 text-olive-700 mt-1 text-xs">
-            <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>{exp.location}</span>
-          </span>
+        {/* Description & Bullets */}
+        <div className="space-y-3">
+          <p className="text-xs sm:text-sm font-sans italic text-olive-900 leading-relaxed">
+            {exp.description}
+          </p>
+
+          <ul className="space-y-2.5 pt-1">
+            {exp.bullets.map((bullet, bIdx) => (
+              <li
+                key={bIdx}
+                className={`flex items-start gap-2 text-xs sm:text-sm text-olive-900 font-sans leading-relaxed transition-all duration-300 ${
+                  isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
+                }`}
+                style={{ transitionDelay: `${bIdx * 40}ms` }}
+              >
+                <ChevronRight className="w-4 h-4 text-copper mt-0.5 shrink-0" aria-hidden="true" />
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
-
-      {/* Description & Bullets */}
-      <div className="space-y-3">
-        <p className="text-sm sm:text-base font-sans italic text-olive-900 leading-relaxed">
-          {exp.description}
-        </p>
-
-        <ul className="space-y-3 pt-2">
-          {exp.bullets.map((bullet, bIdx) => (
-            <li
-              key={bIdx}
-              className={`flex items-start gap-2.5 text-base text-olive-900 font-sans leading-[1.65] transition-all duration-300 ${
-                isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
-              }`}
-              style={{ transitionDelay: `${bIdx * 40}ms` }}
-            >
-              <ChevronRight className="w-5 h-5 text-copper mt-0.5 shrink-0" aria-hidden="true" />
-              <span>{bullet}</span>
-            </li>
-          ))}
-        </ul>
       </div>
 
       {/* Tech Stack Pills */}
-      <div className="mt-6 pt-4 border-t border-dashed border-olive-900/15 flex flex-wrap gap-2 sm:gap-2.5">
+      <div className="mt-5 pt-3.5 border-t border-dashed border-olive-900/15 flex flex-wrap gap-1.5">
         {exp.techStack.map((tech) => (
           <span
             key={tech}
-            className="font-mono text-xs px-2.5 py-1 bg-olive-100 text-olive-900 rounded-xs border border-olive-900/20 font-medium"
+            className="font-mono text-[11px] px-2 py-0.5 bg-olive-100 text-olive-900 rounded-xs border border-olive-900/20 font-medium"
           >
             {tech}
           </span>
@@ -86,7 +86,7 @@ export const Experience: React.FC = () => {
   const { experiences } = portfolioData;
 
   return (
-    <section id="experience" className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+    <section id="experience" className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <RetroWindow
         id="experience-window"
         title="C:\ARYAN\experience"
@@ -102,7 +102,7 @@ export const Experience: React.FC = () => {
           </p>
         </div>
 
-        <div className="space-y-6 sm:space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           {experiences.map((exp, idx) => (
             <ExperienceCard key={exp.company} exp={exp} index={idx} />
           ))}
